@@ -1,0 +1,47 @@
+{
+  "name": "javascript",
+  "version": "1.0.0",
+  "description": "A slightly opinionated approach to JavaScript.",
+  "scripts": {
+    "preinstall": "npm run install:config:base",
+    "install:config:base": "cd packages/eslint-config-base && npm prune && npm install",
+    "test": "npm run --silent test:config:base",
+    "test:config:base": "cd packages/eslint-config-base; npm test",
+    "travis": "npm run --silent travis:config:base",
+    "travis:config:base": "cd packages/eslint-config-base; npm run travis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cospired/javascript.git"
+  },
+  "keywords": [
+    "style guide",
+    "lint",
+    "cospired",
+    "es6",
+    "es2015",
+    "es2016",
+    "es2017",
+    "es2018",
+    "react",
+    "jsx"
+  ],
+  "contributors": [
+    {
+      "name": "Dirk Haage",
+      "email": "dirk@cospired.com",
+      "url": "https://cospired.com/"
+    },
+    {
+      "name": "Jan Schmidle",
+      "email": "jan@cospired.com",
+      "url": "https://cospired.com/"
+    }
+  ],
+  "author": "Dirk Haage <dirk@cospired.com>",
+  "license": "BSD-3-Clause-Clear",
+  "bugs": {
+    "url": "https://github.com/cospired/javascript/issues"
+  },
+  "homepage": "https://github.com/cospired/javascript#readme"
+}
