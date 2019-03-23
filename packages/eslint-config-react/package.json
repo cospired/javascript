@@ -1,5 +1,5 @@
 {
-  "name": "@cospired/eslint-config-base",
+  "name": "@cospired/eslint-config-react",
   "version": "1.0.0",
   "description": "Slightly opinionated eslint config based on airbnb's config",
   "main": "index.js",
@@ -41,11 +41,14 @@
     "es2015",
     "es2016",
     "es2017",
-    "es2018"
+    "es2018",
+    "react",
+    "jsx"
   ],
   "license": "BSD-3-Clause-Clear",
   "dependencies": {
-    "eslint-config-airbnb-base": "^13.1.0",
+    "@cospired/eslint-config-base": "^1.0.0",
+    "eslint-config-airbnb": "^17.1.0",
     "object.assign": "^4.1.0"
   },
   "devDependencies": {
@@ -56,7 +59,10 @@
     "eslint-plugin-eslint-comments": "^3.1.1",
     "eslint-plugin-hapi": "^4.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4",
     "in-publish": "^2.0.0",
+    "react": ">=0.13.0",
     "safe-publish-latest": "^1.1.2",
     "tape": "^4.10.1"
   },
@@ -64,6 +70,8 @@
     "eslint": "^5.15.0",
     "eslint-plugin-eslint-comments": "^3.1.1",
     "eslint-plugin-hapi": "^4.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4"
   }
 }

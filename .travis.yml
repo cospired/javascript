@@ -19,19 +19,24 @@ sudo: false
 env:
   matrix:
     - 'TEST=true ESLINT=5 PACKAGE=eslint-config-base'
+    - 'TEST=true ESLINT=5 PACKAGE=eslint-config-react'
 matrix:
   fast_finish: true
   include:
     - node_js: "lts/*"
       env: PREPUBLISH=true ESLINT=5 PACKAGE=eslint-config-base
     - node_js: "lts/*"
+      env: PREPUBLISH=true ESLINT=5 PACKAGE=eslint-config-react
+    - node_js: "lts/*"
       env: LINT=true
   exclude:
     - node_js: "5"
       env: TEST=true ESLINT=5 PACKAGE=eslint-config-base
+    - node_js: "5"
+      env: TEST=true ESLINT=5 PACKAGE=eslint-config-react
   allow_failures:
     - node_js: "9"
     - node_js: "7"
     - node_js: "5"
     - env: PREPUBLISH=true ESLINT=5 PACKAGE=eslint-config-base
-    - env: PREPUBLISH=true ESLINT=4 PACKAGE=eslint-config-base
+    - env: PREPUBLISH=true ESLINT=5 PACKAGE=eslint-config-react
