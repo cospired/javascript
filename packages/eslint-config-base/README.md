@@ -10,7 +10,7 @@ We export one ESLint configurations for your usage.
 
 ### @cospired/eslint-config-base
 
-Our default export contains all of our ESLint rules, including ECMAScript 6+. It requires `eslint`, `eslint-plugin-eslint-comment`, `eslint-plugin-import` and `eslint-plugin-hapi`.
+Our default export contains all of our ESLint rules, including ECMAScript 6+. It requires `eslint`, `eslint-plugin-eslint-comment`, `eslint-plugin-import` and `@hapi/eslint-plugin-hapi`.
 
 If you use yarn, run `npm info "@cospired/eslint-config-base@latest" peerDependencies` to list the peer dependencies and versions, then run `yarn add --dev <dependency>@<version>` for each listed peer dependency. See below for npm instructions.
 
