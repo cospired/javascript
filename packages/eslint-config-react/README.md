@@ -10,7 +10,7 @@ We export one ESLint configurations for your usage.
 
 ### @cospired/eslint-config-react
 
-Our default export contains all of our ESLint rules, including ECMAScript 6+. It requires `eslint`, `eslint-plugin-eslint-comment`, `eslint-plugin-hapi`, `eslint-plugin-import`, `eslint-plugin-jsx-a11y` and `eslint-plugin-react`. If you don't need React, see [@cospired/eslint-config-react](https://www.npmjs.com/package/@cospired/eslint-config-base).
+Our default export contains all of our ESLint rules, including ECMAScript 6+. It requires `eslint`, `eslint-plugin-eslint-comment`, `@hapi/eslint-plugin-hapi`, `eslint-plugin-import`, `eslint-plugin-jsx-a11y` and `eslint-plugin-react`. If you don't need React, see [@cospired/eslint-config-react](https://www.npmjs.com/package/@cospired/eslint-config-base).
 
 If you use yarn, run `npm info "@cospired/eslint-config-react@latest" peerDependencies` to list the peer dependencies and versions, then run `yarn add --dev <dependency>@<version>` for each listed peer dependency. See below for npm instructions.
 
