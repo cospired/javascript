@@ -13,7 +13,7 @@ module.exports = {
       hapi style guide ESLint rule dealing with for loops.
       https://github.com/hapijs/rule-for-loop
     */
-    '@hapi/hapi/hapi-for-loop': 0,
+    '@hapi/hapi/for-loop': 0,
 
     /*
       Enforces the usage of var declarations only in try-catch scope.

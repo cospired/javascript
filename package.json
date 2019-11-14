@@ -1,6 +1,6 @@
 {
   "name": "@cospired/javascript",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A slightly opinionated approach to JavaScript.",
   "scripts": {
     "preinstall": "npm run install:config:base && npm run install:config:react",
