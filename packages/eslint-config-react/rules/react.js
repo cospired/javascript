@@ -39,5 +39,16 @@ module.exports = {
         noStrings: true,
       },
     ],
+
+    /*
+      Disallow JSX props spreading
+      we allow react-intl component here as the only exception
+      https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spreading.md
+    */
+    'react/jsx-props-no-spreading': ['error', {
+      html: 'enforce',
+      custom: 'enforce',
+      exceptions: ['FormattedMessage'],
+    }],
   },
 };
