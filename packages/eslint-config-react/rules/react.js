@@ -44,9 +44,9 @@ module.exports = {
       Disallow unnecessary fragments
       https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md
     */
-   'react/jsx-no-useless-fragment': ['warn'],
+    'react/jsx-no-useless-fragment': ['warn'],
 
-   /*
+    /*
       Disallow JSX props spreading
       we allow react-intl component here as the only exception
       https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spreading.md
