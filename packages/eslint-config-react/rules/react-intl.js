@@ -4,6 +4,12 @@ module.exports = {
   ],
   rules: {
     /*
+    This blacklists usage of specific elements in ICU message.
+    https://github.com/formatjs/formatjs/tree/master/packages/eslint-plugin-formatjs#blacklist-elements
+    */
+    'formatjs/blacklist-elements': ['off'],
+
+    /*
       Makes sure all values are passed in if message has placeholders
       (number/date/time/plural/select/selectordinal).
       This requires values to be passed in as literal object (not a variable).
@@ -53,5 +59,12 @@ module.exports = {
       https://github.com/formatjs/formatjs/tree/master/packages/eslint-plugin-formatjs#no-offset
     */
     'formatjs/no-offset': ['error'],
+
+    /*
+      Since formatjs only supports a subset of DateTime Skeleton.
+      This rule exists to make sure you don't use a unsupported pattern.
+      https://github.com/formatjs/formatjs/tree/master/packages/eslint-plugin-formatjs#supported-datetime-skeleton
+    */
+    'formatjs/supported-datetime-skeleton': ['error'],
   },
 };
