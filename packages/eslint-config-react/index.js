@@ -11,5 +11,6 @@ module.exports = {
     '@cospired/eslint-config-base/rules/import',
     './rules/react',
     './rules/react-a11y',
+    './rules/react-intl',
   ].map(require.resolve)),
 };
