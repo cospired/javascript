@@ -37,12 +37,17 @@ module.exports = {
       'warn',
       {
         noStrings: true,
+        // TODO: add all literals required for a11y and other rules
+        // currently doesn't work as expected
+        // https://github.com/yannickcr/eslint-plugin-react/issues/2720
+        allowedStrings: ['button', 'submit'],
       },
     ],
 
     /*
       Disallow unnecessary fragments
       https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md
+      TODO: remove when enabled in next major airbnb release
     */
     'react/jsx-no-useless-fragment': ['warn'],
 
@@ -54,6 +59,7 @@ module.exports = {
     'react/jsx-props-no-spreading': ['error', {
       html: 'enforce',
       custom: 'enforce',
+      explicitSpread: 'ignore',
       exceptions: ['FormattedMessage'],
     }],
   },
