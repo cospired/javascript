@@ -1,6 +1,6 @@
 /* eslint
    strict: 0,
-   global-require: 0,
+   global-require: 0, -- requires for test
  */
 
 const test = require('tape');
