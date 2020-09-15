@@ -21,5 +21,11 @@ module.exports = {
       https://mysticatea.github.io/eslint-plugin-eslint-comments/rules/no-use.html
     */
     'eslint-comments/no-use': 0,
+
+    /*
+      enforce description for disable comments
+      https://mysticatea.github.io/eslint-plugin-eslint-comments/rules/require-description.html
+    */
+    'eslint-comments/require-description': 'error',
   },
 };

@@ -11,8 +11,8 @@ fs.readdirSync(path.join(__dirname, '../rules')).forEach((name) => {
     return;
   }
 
-  // eslint-disable-next-line import/no-dynamic-require
-  files[name] = require(`../rules/${name}`); // eslint-disable-line global-require
+  // eslint-disable-next-line import/no-dynamic-require -- iterate rules files for test
+  files[name] = require(`../rules/${name}`); // eslint-disable-line global-require -- see above
 });
 
 Object.keys(files).forEach((name) => {
