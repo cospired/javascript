@@ -58,7 +58,7 @@
     "eslint": "^7.8.0",
     "eslint-find-rules": "^3.6.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-formatjs": "^2.7.7",
+    "eslint-plugin-formatjs": "^2.7.11",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.21.1",
@@ -71,7 +71,7 @@
   "peerDependencies": {
     "@hapi/eslint-plugin-hapi": "^4.3.5",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-formatjs": "^2.7.7",
+    "eslint-plugin-formatjs": "^2.7.11",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react-hooks": "^4.1.0",
