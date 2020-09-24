@@ -73,11 +73,9 @@ module.exports = {
     'formatjs/no-offset': ['error'],
 
     /*
-      Some pipelines enforces automatic ID generation during transpilation using
-      babel-plugin-react-intl or @formatjs/ts-transformer so manual IDs cause issues of
-      mismatching during runtime.
-      https://formatjs.io/docs/tooling/linter#no-id
+      This enforces generated ID to be set in MessageDescriptor.
+      https://formatjs.io/docs/tooling/linter#enforce-id
     */
-    'formatjs/no-id': ['off'],
+    'formatjs/enforce-id': ['off'],
   },
 };
