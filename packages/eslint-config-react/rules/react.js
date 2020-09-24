@@ -38,8 +38,6 @@ module.exports = {
       {
         noStrings: true,
         // TODO: add all literals required for a11y and other rules
-        // currently doesn't work as expected
-        // https://github.com/yannickcr/eslint-plugin-react/issues/2720
         allowedStrings: ['button', 'submit'],
       },
     ],
