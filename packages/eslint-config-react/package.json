@@ -1,6 +1,6 @@
 {
   "name": "@cospired/eslint-config-react",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Slightly opinionated eslint config based on airbnb's config",
   "main": "index.js",
   "scripts": {
@@ -47,35 +47,35 @@
   ],
   "license": "BSD-3-Clause-Clear",
   "dependencies": {
-    "@cospired/eslint-config-base": "^4.0.0",
-    "eslint-config-airbnb": "^18.2.0",
+    "@cospired/eslint-config-base": "^4 || ^5",
+    "eslint-config-airbnb": "^18.2.1",
     "object.assign": "^4.1.1"
   },
   "devDependencies": {
-    "@hapi/eslint-plugin-hapi": "^4.3.5",
+    "@hapi/eslint-plugin": "^5.1.0",
     "babel-preset-airbnb": "^5.0.0",
     "babel-tape-runner": "^3.0.0",
-    "eslint": "^7.8.0",
+    "eslint": "^7.28.0",
     "eslint-find-rules": "^3.6.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-formatjs": "^2.7.11",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.21.1",
-    "eslint-plugin-react-hooks": "^4.1.0",
+    "eslint-plugin-formatjs": "^2.15.6",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react": "^7.24.0",
     "in-publish": "^2.0.1",
     "react": "^16.13.1",
     "safe-publish-latest": "^1.1.4",
     "tape": "^5.0.1"
   },
   "peerDependencies": {
-    "@hapi/eslint-plugin-hapi": "^4.3.5",
+    "@hapi/eslint-plugin": "^5.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-formatjs": "^2.7.11",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react-hooks": "^4.1.0",
-    "eslint-plugin-react": "^7.21.1",
-    "eslint": "^7.8.0"
+    "eslint-plugin-formatjs": "^2.15.6",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint": "^7.28.0"
   }
 }

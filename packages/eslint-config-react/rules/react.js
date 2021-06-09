@@ -28,6 +28,20 @@ module.exports = {
     'react/jsx-fragments': ['warn', 'element'],
 
     /*
+      Enforce a new line after jsx elements and expressions
+      https://github.com/yannickcr/eslint-plugin-react/blob/e2eaadae316f9506d163812a09424eb42698470a/docs/rules/jsx-newline.md
+      TODO: not released as of airbnb@18.2.1, remove when released
+    */
+    'react/jsx-newline': 'off',
+
+    /*
+      Prevent react contexts from taking non-stable values
+      https://github.com/yannickcr/eslint-plugin-react/blob/e2eaadae316f9506d163812a09424eb42698470a/docs/rules/jsx-no-constructed-context-values.md
+      TODO: not released as of airbnb@18.2.1, recheck when released
+    */
+    'react/jsx-no-constructed-context-values': 'warn',
+
+    /*
       Prevent usage of JSX strings in general
       strings should always be translatables, hence simple strings are not allowed
       We keep this a 'warn' to allow strings during dev
@@ -43,9 +57,16 @@ module.exports = {
     ],
 
     /*
+      Prevent creating unstable components inside components
+      https://github.com/yannickcr/eslint-plugin-react/blob/c2a790a3472eea0f6de984bdc3ee2a62197417fb/docs/rules/no-unstable-nested-components.md
+      TODO: not released as of airbnb@18.2.1, recheck when released
+    */
+    'react/no-unstable-nested-components': 'warn',
+
+    /*
       Disallow unnecessary fragments
       https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md
-      TODO: remove when enabled in next major airbnb release
+      TODO: part of but not enabled yet as of airbnb@18.2.1, remove when enabled
     */
     'react/jsx-no-useless-fragment': ['warn'],
 

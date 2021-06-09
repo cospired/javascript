@@ -49,6 +49,13 @@ module.exports = {
     'formatjs/no-camel-case': ['off'],
 
     /*
+      Make sure a sentence is not too complex. Complexity is determined by how many strings are
+      produced when we try to flatten the sentence given its selectors.
+      https://formatjs.io/docs/tooling/linter/#no-complex-selectors
+    */
+    'formatjs/no-complex-selectors': ['error'],
+
+    /*
       This prevents usage of emoji in message.
       https://github.com/formatjs/formatjs/tree/master/packages/eslint-plugin-formatjs#no-emoji
     */

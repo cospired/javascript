@@ -23,12 +23,21 @@ module.exports = {
     ],
 
     /*
-      Prohibit named exports. this is a terrible rule, do not use it.
-      https://github.com/benmosher/eslint-plugin-import/blob/1ec80fa35fa1819e2d35a70e68fb6a149fb57c5e/docs/rules/no-named-export.md
-      TODO: part of airbnb-base but not published yet as of 2019-03-23,
-       remove when published
+      Reports the use of import declarations with CommonJS exports in any module except for the
+      main module.
+      https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-import-module-exports.md
+      TODO: not yet part of airbnb-base@14.2.1
+        revisit when published
     */
-    'import/no-named-export': 'off',
+    'import/no-import-module-exports': 'error',
+
+    /*
+      prevent importing packages through relative paths.
+      https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-relative-packages.md
+      TODO: not yet part of airbnb-base@14.2.1
+        revisit when published
+    */
+    'import/no-relative-packages': 'error',
 
     /*
       group imports depending on source and visually group them
