@@ -3,7 +3,7 @@ module.exports = {
     /*
       force default params to be last
       https://eslint.org/docs/rules/default-param-last
-      TODO: part of = but not enabled yet as of airbnb-base@14.2.1,
+      TODO: part of but not enabled yet as of airbnb-base@14.2.1,
        remove when enabled
     */
     'default-param-last': 'error',
