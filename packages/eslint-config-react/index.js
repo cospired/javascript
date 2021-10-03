@@ -10,6 +10,6 @@ module.exports = {
     '@cospired/eslint-config-base/rules/hapi',
     '@cospired/eslint-config-base/rules/import',
     './rules/react',
-    './rules/react-intl',
+    './rules/format',
   ].map(require.resolve)),
 };
