@@ -1,6 +1,6 @@
 {
   "name": "@cospired/eslint-config-react",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Slightly opinionated eslint config based on airbnb's config",
   "main": "index.js",
   "scripts": {
@@ -47,7 +47,7 @@
   ],
   "license": "BSD-3-Clause-Clear",
   "dependencies": {
-    "@cospired/eslint-config-base": "^4 || ^5",
+    "@cospired/eslint-config-base": "^5",
     "eslint-config-airbnb": "^18.2.1",
     "object.assign": "^4.1.1"
   },
