@@ -57,11 +57,25 @@ module.exports = {
     ],
 
     /*
+      Enforce that namespaces are not used in React elements
+      https://github.com/yannickcr/eslint-plugin-react/blob/8785c169c25b09b33c95655bf508cf46263bc53f/docs/rules/no-namespace.md
+      TODO: part of but not enabled yet as of airbnb@18.2.1, remove when enabled
+    */
+    'react/no-namespace': 'warn',
+
+    /*
       Prevent creating unstable components inside components
       https://github.com/yannickcr/eslint-plugin-react/blob/c2a790a3472eea0f6de984bdc3ee2a62197417fb/docs/rules/no-unstable-nested-components.md
       TODO: not released as of airbnb@18.2.1, recheck when released
     */
     'react/no-unstable-nested-components': 'warn',
+
+    /*
+      Prefer exact proptype definitions
+      https://github.com/yannickcr/eslint-plugin-react/blob/8785c169c25b09b33c95655bf508cf46263bc53f/docs/rules/prefer-exact-props.md
+      TODO: part of but not enabled yet as of airbnb@18.2.1, remove when enabled
+    */
+    'react/prefer-exact-props': 'off',
 
     /*
       Disallow unnecessary fragments
