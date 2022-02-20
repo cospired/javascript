@@ -1,6 +1,6 @@
 {
   "name": "@cospired/eslint-config-base",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "description": "Slightly opinionated eslint config based on airbnb's config",
   "main": "index.js",
   "scripts": {
