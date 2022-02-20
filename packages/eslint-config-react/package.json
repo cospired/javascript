@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "posttravis": ":",
-    "prepare": "(in-install || eslint-find-rules --unused) && (not-in-publish || npm test) && safe-publish-latest",
+    "prepublishOnly": "eslint-find-rules --unused && npm test && safe-publish-latest",
+    "prepublish": "not-in-publish || npm run prepublishOnly",
     "pretest": "npm run --silent lint",
     "pretests-only": "node ./test/requires",
     "pretravis": ":",
