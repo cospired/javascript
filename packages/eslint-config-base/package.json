@@ -4,15 +4,16 @@
   "description": "Slightly opinionated eslint config based on airbnb's config",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
-    "posttravis": ":",
-    "prepare": "(in-install || eslint-find-rules --unused) && (not-in-publish || npm test) && safe-publish-latest",
+    "lint": "eslint --report-unused-disable-directives .",
+    "prepublishOnly": "eslint-find-rules --unused && npm test && safe-publish-latest",
+    "prepublish": "not-in-publish || npm run prepublishOnly",
     "pretest": "npm run --silent lint",
     "pretests-only": "node ./test/requires",
-    "pretravis": ":",
     "test": "npm run --silent tests-only",
     "tests-only": "babel-tape-runner ./test/*.test.js",
-    "travis": "npm run --silent test"
+    "pretravis": ":",
+    "travis": "npm run --silent test",
+    "posttravis": ":"
   },
   "repository": {
     "type": "git",
