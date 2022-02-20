@@ -30,5 +30,13 @@ module.exports = {
         vars: 'all',
       },
     ],
+
+    /*
+      Prefer Object.hasOwn() over Object.prototype.hasOwnProperty.call()
+      https://eslint.org/docs/rules/prefer-object-has-own
+      TODO: part of but not enabled yet as of airbnb-base@15.0.0,
+       remove when enabled
+    */
+    'prefer-object-has-own': 'warn',
   },
 };
