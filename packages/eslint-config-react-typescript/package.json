@@ -27,7 +27,7 @@
   "dependencies": {
     "@cospired/eslint-config-base": "^7.0.2",
     "@cospired/eslint-config-react": "^7.0.0",
-    "@cospired/eslint-config-typescript": "^7.0.0"
+    "@cospired/eslint-config-typescript": "^0.0.0"
   },
   "peerDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
