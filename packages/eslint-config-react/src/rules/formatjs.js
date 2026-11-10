@@ -14,6 +14,8 @@ export default {
       Enforce description in message descriptor.
       Off: there is no translator workflow that needs a description on every message yet.
       https://formatjs.github.io/docs/tooling/linter#enforce-description
+      https://formatjs.github.io/docs/tooling/linter#enforce-message-types
+      https://formatjs.github.io/docs/tooling/linter#no-invalid-icu
     */
     'formatjs/enforce-description': 'off',
 
@@ -27,6 +29,7 @@ export default {
     /*
       Check ICU placeholders and optionally generate TypeScript argument contracts.
       Off: no project-wide restriction on message types.
+      https://formatjs.github.io/docs/tooling/linter#enforce-message-types
     */
     'formatjs/enforce-message-types': 'off',
 
@@ -61,6 +64,7 @@ export default {
     /*
       Make sure ICU messages are formatted correctly with no bad select statements, plurals, etc.
       A syntax error in an ICU message only shows up at runtime otherwise.
+      https://formatjs.github.io/docs/tooling/linter#no-invalid-icu
     */
     'formatjs/no-invalid-icu': 'error',
 
