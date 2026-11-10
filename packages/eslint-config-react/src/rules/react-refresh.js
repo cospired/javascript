@@ -6,8 +6,10 @@ export default {
   plugins: { 'react-refresh': reactRefresh },
   rules: {
     /*
+      Validate that components can safely be updated with Fast Refresh.
       Keeps components hot-reloadable (Vite Fast Refresh): a file exporting components exports
       nothing else but constants.
+      https://github.com/ArnaudBarre/eslint-plugin-react-refresh#only-export-components
     */
     'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
 
