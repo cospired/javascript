@@ -1,8 +1,12 @@
+// typescript-eslint infers "single run" mode from CI=true and then caches the first source text it sees per file path;
+// these helpers lint different code against the same fixture path, so that inference must be off.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { ESLint } from 'eslint';
 import { builtinRules } from 'eslint/use-at-your-own-risk';
+
+process.env.TSESTREE_SINGLE_RUN ??= 'false';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
