@@ -14,6 +14,7 @@ const tsConfig = createTypescriptConfig(tsOptions);
 const lint = async (code, file = 'src/a.js', cfg = config) => ruleIds(await lintText(cfg, code, { filePath: path.join(root, file), cwd: root }));
 
 // [rule, code that must be flagged, code that must pass]
+/* eslint-disable no-template-curly-in-string -- fixture code is written as plain strings */
 const cases = [
   ['eqeqeq', 'export const a = (x, y) => x == y;\n', 'export const a = (x) => x == null;\n'],
   ['no-param-reassign', 'export function f(a) {\n  a = 1;\n\n  return a;\n}\n', 'export function f(a) {\n  a.x = 1;\n}\n'],
@@ -30,6 +31,7 @@ const cases = [
   ['no-unused-vars', 'export function f() {\n  const x = 1;\n}\n', 'export function f() {\n  const _x = 1;\n}\n'],
   ['no-console', 'console.log(1);\n', 'console.warn(1);\nconsole.error(2);\n'],
 ];
+/* eslint-enable no-template-curly-in-string -- end of fixture table */
 
 for (const [rule, bad, good] of cases) {
   test(`${rule}: flagged / accepted`, async () => {
@@ -40,6 +42,7 @@ for (const [rule, bad, good] of cases) {
 
 test('no-plusplus is not enabled; hapi plugin is gone', () => {
   const rules = loadedRules(config);
+
   assert.ok(!rules.has('no-plusplus'));
   assert.deepEqual([...rules].filter((id) => id.startsWith('@hapi/')), []);
 });
@@ -50,6 +53,7 @@ test('functions need no blank line at the start of the body (Prettier-safe)', as
 
 test('import-x named-as-default rules are off', () => {
   const rules = loadedRules(config);
+
   assert.ok(!rules.has('import-x/no-named-as-default') && !rules.has('import-x/no-named-as-default-member'));
 });
 
@@ -60,7 +64,8 @@ test('no rule resolves to "warn" in any base config', async () => {
 });
 
 test('TS config uses the typescript-eslint variants and drops consistent-return', async () => {
-  const sev = (id) => ruleSeverity(tsConfig, id, path.join(root, 'src/a.ts'));
+  const sev = (id) => ruleSeverity(tsConfig, id, path.join(root, 'src/a.ts'), root);
+
   for (const id of ['@typescript-eslint/no-shadow', '@typescript-eslint/no-use-before-define', '@typescript-eslint/default-param-last', '@typescript-eslint/no-explicit-any']) assert.equal(await sev(id), 2, id);
   for (const id of ['no-shadow', 'no-use-before-define', 'default-param-last', 'consistent-return']) assert.equal(await sev(id), 0, id);
 });
@@ -68,7 +73,30 @@ test('TS config uses the typescript-eslint variants and drops consistent-return'
 test('scripts/ files get node globals in every base config', async () => {
   for (const [name, cfg] of [['js', config], ['ts', tsConfig]]) {
     const found = await lint('process.exit(1);\n', 'scripts/run.mjs', cfg);
+
     assert.ok(!found.includes('no-undef'), `${name}: process should be defined in scripts/`);
   }
   assert.ok((await lint('process.exit(1);\n', 'src/run.mjs', tsConfig)).includes('no-undef'));
+});
+
+test('test-file globs also match from a monorepo root config', async () => {
+  const { testGlobs } = await import('../src/globs.js');
+
+  for (const glob of ['test/**', '**/__tests__/**', '**/*.{test,spec}.{ts,tsx,mts,cts}']) {
+    assert.ok(testGlobs.includes(glob) && testGlobs.includes(`{apps,packages}/*/${glob}`), glob);
+  }
+});
+
+test('console is allowed in scripts of every extension', async () => {
+  for (const ext of ['js', 'mjs', 'cjs', 'ts', 'mts', 'cts']) {
+    const found = await lint('console.log(1);\n', `scripts/x.${ext}`, createTypescriptConfig(tsOptions));
+
+    assert.ok(!found.includes('no-console'), ext);
+  }
+});
+
+test('explicit index.js imports are not "useless" (ESM has no directory imports)', async () => {
+  const found = await lint("import { a } from './index.js';\n\nexport const b = a;\n", 'src/b.js');
+
+  assert.ok(!found.includes('import-x/no-useless-path-segments'));
 });

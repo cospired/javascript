@@ -5,8 +5,9 @@ Slightly opinionated ESLint flat configs (ESLint 10) for JavaScript and TypeScri
 | Package | Entry | For |
 |---|---|---|
 | [`@cospired/eslint-config-base`](packages/eslint-config-base) | `.` | JavaScript |
+| | `./node-js` | Node.js JavaScript |
 | | `./typescript` | TypeScript (type-aware) |
-| | `./node` | Node/backend TypeScript |
+| | `./node` | Node.js TypeScript |
 | [`@cospired/eslint-config-react`](packages/eslint-config-react) | `.` | React, JavaScript |
 | | `./typescript` | React, TypeScript |
 
@@ -17,9 +18,12 @@ Every rule that differs from ESLint/typescript-eslint recommended, with its sour
 ```sh
 npm install
 npm test        # node:test over every package, the test helpers and the rule-table script
-npm run lint
+npm run lint    # the repo lints itself with its own config
+npm run smoke   # pack both packages, install them in a clean project, lint with one-line configs
 npm run rules   # regenerate docs/rules.md
 npx changeset   # describe a change for the next release
 ```
 
 Releases are cut by the changesets GitHub Action on `main`.
+
+CI runs the tests on Node 20.19, 22.13 and 24, again with every peer dependency at its minimum version, and the pack smoke test.

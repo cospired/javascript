@@ -1,13 +1,14 @@
 import { recommended } from '@eslint-community/eslint-plugin-eslint-comments/configs';
-import todoPlz from 'eslint-plugin-todo-plz';
 
-/** Directive comments need a reason, TODOs need a ticket. */
+/** Directive comments stay narrow, named and explained. */
 export default {
-  plugins: { ...recommended.plugins, 'todo-plz': todoPlz },
+  name: 'cospired/eslint-comments',
+  plugins: recommended.plugins,
   linterOptions: { reportUnusedDisableDirectives: 'error' },
   rules: {
     ...recommended.rules,
     '@eslint-community/eslint-comments/require-description': 'error',
-    'todo-plz/ticket-ref': ['error', { pattern: '#\\d+' }],
+    '@eslint-community/eslint-comments/no-restricted-disable': 'off',
+    '@eslint-community/eslint-comments/no-use': 'off',
   },
 };

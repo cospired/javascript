@@ -10,5 +10,6 @@ test('every configured rule exists', () => {
 
 test('base contains no react rules', () => {
   const react = [...loadedRules(config)].filter((id) => id.startsWith('react/') || id.startsWith('react-hooks/'));
+
   assert.deepEqual(react, []);
 });

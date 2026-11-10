@@ -8,11 +8,13 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "npm test --workspaces --if-present && node --test test-utils scripts",
+    "test": "npm test --workspaces --if-present && node --test test-utils/*.test.js scripts/*.test.js",
     "lint": "eslint .",
     "changeset": "changeset",
     "release": "changeset publish",
-    "rules": "node scripts/rule-table.js"
+    "rules": "node scripts/rule-table.js",
+    "smoke": "node scripts/smoke-pack.js",
+    "version": "changeset version && npm install --package-lock-only --ignore-scripts"
   },
   "repository": {
     "type": "git",

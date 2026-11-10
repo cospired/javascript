@@ -1,8 +1,17 @@
-import js from '@eslint/js';
-import globals from 'globals';
+import nodeJs from './packages/eslint-config-base/src/node-js.js';
 
+// The repo lints itself with the config it ships.
 export default [
-  { ignores: ['node_modules', '**/fixtures/**'] },
-  js.configs.recommended,
-  { languageOptions: { globals: globals.node } },
+  ...nodeJs,
+  { ignores: ['**/fixtures/**', '.superpowers/**'] },
+  {
+    // Test helpers import the plugins they check; they are devDependencies of the repo.
+    files: ['test-utils/**'],
+    rules: { 'import-x/no-extraneous-dependencies': ['error', { devDependencies: true }] },
+  },
+  {
+    // Tests and scripts import the shared helpers through relative paths across package boundaries.
+    files: ['**/test/**', 'test-utils/**', 'scripts/**'],
+    rules: { 'import-x/no-relative-packages': 'off', 'no-await-in-loop': 'off' },
+  },
 ];

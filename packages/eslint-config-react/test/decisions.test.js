@@ -19,10 +19,18 @@ test('hooks exhaustive-deps, refresh and formatjs literal-string rules are error
 
 test('no-unused-expressions is strict in React code (no short-circuit statements)', async () => {
   const code = 'export function f(a, g) {\n  a && g();\n}\n';
+
   assert.ok((await ids(jsConfig, code, 'src/a.jsx')).includes('no-unused-expressions'));
 });
 
 test('formatjs: enforce-description is off, no-camel-case is an error', async () => {
   assert.equal(await ruleSeverity(jsConfig, 'formatjs/enforce-description', path.join(root, 'src/a.jsx')), 0);
   assert.equal(await ruleSeverity(jsConfig, 'formatjs/no-camel-case', path.join(root, 'src/a.jsx')), 2);
+});
+
+test('formatjs exempts the same test files as the base config', async () => {
+  const sev = (file) => ruleSeverity(jsConfig, 'formatjs/enforce-default-message', path.join(root, file), root);
+
+  assert.equal(await sev('src/a.jsx'), 2);
+  for (const file of ['src/a.test.jsx', 'test/helpers.jsx', 'src/__tests__/a.jsx']) assert.notEqual(await sev(file), 2, file);
 });

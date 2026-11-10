@@ -17,6 +17,7 @@ test('React JS config contains no @typescript-eslint rules', () => {
 test('React configs enable hooks, refresh and formatjs rules', () => {
   for (const cfg of [jsConfig, tsConfig]) {
     const rules = loadedRules(cfg);
+
     for (const id of ['react-hooks/rules-of-hooks', 'react-refresh/only-export-components', 'formatjs/enforce-default-message']) assert.ok(rules.has(id), id);
   }
 });
