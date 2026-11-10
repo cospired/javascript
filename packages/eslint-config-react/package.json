@@ -1,82 +1,41 @@
 {
   "name": "@cospired/eslint-config-react",
-  "version": "6.0.0",
-  "description": "Slightly opinionated eslint config based on airbnb's config",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint .",
-    "posttravis": ":",
-    "prepublishOnly": "eslint-find-rules --unused && npm test && safe-publish-latest",
-    "prepublish": "not-in-publish || npm run prepublishOnly",
-    "pretest": "npm run --silent lint",
-    "pretests-only": "node ./test/requires",
-    "pretravis": ":",
-    "test": "npm run --silent tests-only",
-    "tests-only": "babel-tape-runner ./test/*.test.js",
-    "travis": "npm run --silent test"
-  },
+  "version": "7.0.0",
+  "description": "Slightly opinionated ESLint flat config for React (JavaScript and TypeScript)",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "license": "BSD-3-Clause-Clear",
+  "author": "Dirk Haage <dirk@cospired.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/cospired/javascript"
   },
-  "contributors": [
-    {
-      "name": "Dirk Haage",
-      "email": "dirk@cospired.com",
-      "url": "https://cospired.com/"
-    },
-    {
-      "name": "Jan Schmidle",
-      "email": "jan@cospired.com",
-      "url": "https://cospired.com/"
-    }
-  ],
-  "author": "Dirk Haage <dirk@cospired.com>",
   "keywords": [
     "eslint",
     "eslintconfig",
-    "config",
-    "cospired",
-    "javascript",
-    "styleguide",
-    "es2015",
-    "es2016",
-    "es2017",
-    "es2018",
-    "react",
-    "jsx"
+    "flat-config",
+    "typescript",
+    "cospired"
   ],
-  "license": "BSD-3-Clause-Clear",
-  "dependencies": {
-    "@cospired/eslint-config-base": "^6.0.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "object.assign": "^4.1.1"
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
   },
-  "devDependencies": {
-    "@hapi/eslint-plugin": "^5.1.0",
-    "babel-preset-airbnb": "^5.0.0",
-    "babel-tape-runner": "^3.0.0",
-    "eslint": "^8.9.0",
-    "eslint-find-rules": "^4.1.0",
-    "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-formatjs": "^3.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "in-publish": "^2.0.1",
-    "react": "^16.13.1",
-    "safe-publish-latest": "^2.0.0",
-    "tape": "^5.5.2"
+  "exports": {
+    ".": "./src/index.js",
+    "./typescript": "./src/typescript.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@cospired/eslint-config-base": "*"
   },
   "peerDependencies": {
-    "@hapi/eslint-plugin": "^5.1.0",
-    "eslint": "^8.9.0",
-    "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-formatjs": "^3.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0"
+    "eslint": "^10.0.0",
+    "eslint-plugin-formatjs": "^8.1.4",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "eslint-plugin-react-refresh": "^0.5.0"
   }
 }
