@@ -64,3 +64,11 @@ test('TS config uses the typescript-eslint variants and drops consistent-return'
   for (const id of ['@typescript-eslint/no-shadow', '@typescript-eslint/no-use-before-define', '@typescript-eslint/default-param-last', '@typescript-eslint/no-explicit-any']) assert.equal(await sev(id), 2, id);
   for (const id of ['no-shadow', 'no-use-before-define', 'default-param-last', 'consistent-return']) assert.equal(await sev(id), 0, id);
 });
+
+test('scripts/ files get node globals in every base config', async () => {
+  for (const [name, cfg] of [['js', config], ['ts', tsConfig]]) {
+    const found = await lint('process.exit(1);\n', 'scripts/run.mjs', cfg);
+    assert.ok(!found.includes('no-undef'), `${name}: process should be defined in scripts/`);
+  }
+  assert.ok((await lint('process.exit(1);\n', 'src/run.mjs', tsConfig)).includes('no-undef'));
+});

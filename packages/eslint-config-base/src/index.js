@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
+import globals from 'globals';
 
 import comments from './rules/comments.js';
 import general from './rules/general.js';
@@ -26,8 +27,8 @@ export function createBaseConfig(importOptions) {
     createImportsConfig(importOptions),
     style,
     general,
-    // CLI output is expected in scripts.
-    { files: ['scripts/**/*.{mjs,js,ts}'], rules: { 'no-console': 'off' } },
+    // Build/CLI scripts run on Node and print to the console.
+    { files: ['scripts/**/*.{mjs,js,ts}'], languageOptions: { globals: globals.node }, rules: { 'no-console': 'off' } },
     ...prettierLast,
   ];
 }
