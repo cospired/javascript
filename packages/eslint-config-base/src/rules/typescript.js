@@ -2,6 +2,8 @@ import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescrip
 import { flatConfigs as importX } from 'eslint-plugin-import-x';
 
 export const tsExtensions = ['.ts', '.tsx', '.mts', '.cts'];
+/** JS files can be matched by a consumer's `files`; they are never type-checked. */
+export const jsFiles = ['**/*.{js,jsx,mjs,cjs}'];
 export const testGlobs = ['**/*.{test,spec}.{ts,tsx,mts,cts}', 'test/**', 'tests/**', '**/__tests__/**'];
 
 /** Rules on top of typescript-eslint's recommended/stylistic type-checked sets. Severities are placeholders until the rule review. */

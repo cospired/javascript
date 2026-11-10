@@ -36,3 +36,10 @@ test('no-console is allowed in scripts/ but not in src/', async () => {
   assert.ok(!(await ids(node, code, 'scripts/run.mjs')).includes('no-console'));
   assert.ok((await ids(node, code, 'src/run.mjs')).includes('no-console'));
 });
+
+test('JS files matched by `files` are linted without type-aware rules (no crash)', async () => {
+  const cfg = createNodeConfig({ ...options, files: ['src/**/*.{ts,js}', '*.{ts,js}'] });
+  const found = await ids(cfg, 'export const a = (x) => x || 1;\n', 'src/c.js');
+  assert.ok(!found.includes('@typescript-eslint/prefer-nullish-coalescing'));
+  assert.ok(!found.includes('@typescript-eslint/explicit-function-return-type'));
+});
