@@ -60,7 +60,7 @@ test('no rule resolves to "warn" in any base config', async () => {
 });
 
 test('TS config uses the typescript-eslint variants and drops consistent-return', async () => {
-  const sev = (id) => ruleSeverity(tsConfig, id, path.join(root, 'src/a.ts'));
+  const sev = (id) => ruleSeverity(tsConfig, id, path.join(root, 'src/a.ts'), root);
   for (const id of ['@typescript-eslint/no-shadow', '@typescript-eslint/no-use-before-define', '@typescript-eslint/default-param-last', '@typescript-eslint/no-explicit-any']) assert.equal(await sev(id), 2, id);
   for (const id of ['no-shadow', 'no-use-before-define', 'default-param-last', 'consistent-return']) assert.equal(await sev(id), 0, id);
 });

@@ -1,7 +1,7 @@
 import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 
-import { withMonorepoTwins } from './globs.js';
+import { anyTestGlobs, withMonorepoTwins } from './globs.js';
 import { globalIgnores } from './ignores.js';
 import eslintCore from './rules/eslint.js';
 import eslintComments from './rules/eslint-comments.js';
@@ -28,6 +28,7 @@ export function createBaseConfig(importOptions) {
     ...eslintCore,
     eslintComments,
     createImportsConfig(importOptions),
+    { name: 'cospired/tests', files: anyTestGlobs, rules: { 'import-x/first': 'off' } }, // vi.mock()/jest.mock() hoisting runs before imports
     todoPlz,
     stylistic,
     // Build/CLI scripts run on Node and print to the console.

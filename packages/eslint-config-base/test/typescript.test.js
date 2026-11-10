@@ -10,7 +10,7 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures',
 const abs = (file) => path.join(root, file);
 const options = { tsconfigPath: [abs('tsconfig.json'), abs('tsconfig.test.json')], tsconfigRootDir: root };
 const config = createTypescriptConfig(options);
-const lint = async (code, file = 'src/a.ts', cfg = config) => lintText(cfg, code, { filePath: abs(file) });
+const lint = async (code, file = 'src/a.ts', cfg = config) => lintText(cfg, code, { filePath: abs(file), cwd: root });
 const ids = async (...args) => {
   const messages = await lint(...args);
   assert.deepEqual(messages.filter((m) => m.fatal), [], 'fixture must parse');
@@ -31,7 +31,7 @@ test('no-misused-promises flags an async callback used as a condition', async ()
 });
 
 test('no-generated-empty-object-type is an error for TS files', async () => {
-  assert.equal(await ruleSeverity(config, '@typescript-eslint/no-generated-empty-object-type', abs('src/a.ts')), 2);
+  assert.equal(await ruleSeverity(config, '@typescript-eslint/no-generated-empty-object-type', abs('src/a.ts'), root), 2);
 });
 
 test('accepts an array of tsconfigs: src and test files both lint without parse errors', async () => {

@@ -9,7 +9,8 @@ export const anyTestGlobs = withMonorepoTwins(['**/*.{test,spec}.{ts,tsx,mts,cts
 export const jsFiles = ['**/*.{js,jsx,mjs,cjs}'];
 
 /**
- * Files linted without type information unless `typedTests: true`: they are often not part of any tsconfig
- * (build configs exclude them), and type-aware linting reports a parsing error for such files.
+ * Files linted without type information unless `typedTests: true`: tests, TypeScript files at the package root
+ * (vitest.config.ts, drizzle.config.ts, ...) and scripts. They are often not part of any tsconfig (build configs
+ * exclude them), and type-aware linting reports a parsing error for such files.
  */
-export const untypedGlobs = [...testGlobs, ...withMonorepoTwins(['*.config.{ts,mts,cts}', 'scripts/**/*.{ts,mts,cts}'])];
+export const untypedGlobs = [...testGlobs, ...withMonorepoTwins(['*.{ts,mts,cts}', 'scripts/**/*.{ts,mts,cts}'])];
