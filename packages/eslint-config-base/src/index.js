@@ -9,5 +9,13 @@ import style from './rules/style.js';
 export { globalIgnores } from './ignores.js';
 export { createImportsConfig, defaultDevDependencyGlobs } from './rules/imports.js';
 
-/** JavaScript config: ESLint recommended + cospired rules. Prettier last. */
-export default [js.configs.recommended, comments, createImportsConfig(), style, general, prettier];
+/**
+ * Language-agnostic rules. Prettier last.
+ * @param {Parameters<typeof createImportsConfig>[0]} [importOptions]
+ */
+export function createBaseConfig(importOptions) {
+  return [js.configs.recommended, comments, createImportsConfig(importOptions), style, general, prettier];
+}
+
+/** JavaScript config: ESLint recommended + cospired rules. */
+export default createBaseConfig();
