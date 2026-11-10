@@ -14,9 +14,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
           registry-url: https://registry.npmjs.org
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - uses: changesets/action@v1
         with:
           publish: npm run release
