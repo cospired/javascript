@@ -1,5 +1,5 @@
+import { prettierLast } from '@cospired/eslint-config-base';
 import { createTypescriptConfig, globalIgnores } from '@cospired/eslint-config-base/typescript';
-import prettier from 'eslint-config-prettier';
 
 import formatjs from './rules/formatjs.js';
 import react from './rules/react.js';
@@ -13,5 +13,5 @@ export { globalIgnores };
  * @returns {import('eslint').Linter.Config[]}
  */
 export function createReactTypescriptConfig(options = {}) {
-  return [...createTypescriptConfig(options), ...react, formatjs, prettier];
+  return [...createTypescriptConfig(options), ...react, formatjs, ...prettierLast];
 }

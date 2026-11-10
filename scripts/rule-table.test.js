@@ -24,3 +24,8 @@ test('renderTable renders a markdown table with a Decision column', () => {
   assert.match(md, /^## Base JS/m);
   assert.match(md, /\| `no-console` \| error \| warn \| eventured \| open \|/);
 });
+
+test('renderTable fills the Decision column from the decisions map', () => {
+  const md = renderTable('X', [{ rule: 'no-console', ours: 'error', recommended: 'warn', source: 'eventured' }], { 'no-console': 'error, allow warn/error' });
+  assert.match(md, /\| `no-console` \| error \| warn \| eventured \| error, allow warn\/error \|/);
+});
