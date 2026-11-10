@@ -8,10 +8,11 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "npm test --workspaces --if-present && node --test test-utils",
+    "test": "npm test --workspaces --if-present && node --test test-utils scripts",
     "lint": "eslint .",
     "changeset": "changeset",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "rules": "node scripts/rule-table.js"
   },
   "repository": {
     "type": "git",
