@@ -27,7 +27,7 @@
     "./typescript": "./src/typescript.js"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test 'test/*.test.js'"
   },
   "dependencies": {
     "@cospired/eslint-config-base": "*"

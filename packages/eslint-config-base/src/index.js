@@ -2,6 +2,7 @@ import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 
 import { withMonorepoTwins } from './globs.js';
+import { globalIgnores } from './ignores.js';
 import eslintCore from './rules/eslint.js';
 import eslintComments from './rules/eslint-comments.js';
 import { createImportsConfig } from './rules/import-x.js';
@@ -35,5 +36,5 @@ export function createBaseConfig(importOptions) {
   ];
 }
 
-/** JavaScript config: ESLint recommended + cospired rules. */
-export default createBaseConfig();
+/** JavaScript config: ESLint recommended + cospired rules, ready to use as `export { default } from '@cospired/eslint-config-base'`. */
+export default [globalIgnores, ...createBaseConfig()];

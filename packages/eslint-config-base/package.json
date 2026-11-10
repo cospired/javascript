@@ -28,7 +28,7 @@
     "./node": "./src/node.js"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test 'test/*.test.js'"
   },
   "peerDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",

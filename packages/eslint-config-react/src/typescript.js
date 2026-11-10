@@ -17,3 +17,6 @@ export { globalIgnores };
 export function createReactTypescriptConfig(options = {}) {
   return [...createTypescriptConfig(options), ...react, ...reactHooks, reactRefresh, formatjs, ...prettierLast];
 }
+
+/** React TypeScript config with defaults, ready to use as `export { default } from '@cospired/eslint-config-react/typescript'`. */
+export default createReactTypescriptConfig();

@@ -1,9 +1,10 @@
 import globals from 'globals';
 
 import { jsFiles } from './globs.js';
-import { createTypescriptConfig } from './typescript.js';
 
 export { globalIgnores } from './ignores.js';
+import { createTypescriptConfig } from './typescript.js';
+
 
 /**
  * Node.js/backend TypeScript config: `createTypescriptConfig` plus node globals.
@@ -28,3 +29,6 @@ export function createNodeConfig(options = {}) {
     },
   ];
 }
+
+/** Node TypeScript config with defaults, ready to use as `export { default } from '@cospired/eslint-config-base/node'`. */
+export default createNodeConfig();

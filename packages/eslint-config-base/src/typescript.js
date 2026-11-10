@@ -1,12 +1,13 @@
 import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
+import { globalIgnores } from './ignores.js';
 import { createBaseConfig, prettierLast } from './index.js';
 import { jsFiles, testGlobs } from './globs.js';
 import { importSettings, importXTypescript, importXTypescriptRules } from './rules/import-x.js';
 import { sourceOnlyRules, typescriptRules } from './rules/typescript-eslint.js';
 
-export { globalIgnores } from './ignores.js';
+export { globalIgnores };
 
 /**
  * TypeScript config: base rules + typescript-eslint (type-checked) + cospired TS rules.
@@ -29,9 +30,10 @@ export function createTypescriptConfig({
 } = {}) {
   const parserOptions = tsconfigPath
     ? { project: tsconfigPath, tsconfigRootDir }
-    : { projectService: true, tsconfigRootDir };
+    : { projectService: { allowDefaultProject: ['*.config.{ts,mts,cts}'] }, tsconfigRootDir };
 
   return [
+    globalIgnores,
     ...createBaseConfig({ devDependencyGlobs, pathGroups: importOrder.pathGroups }),
     ...defineConfig({
       files,
@@ -45,3 +47,6 @@ export function createTypescriptConfig({
     ...prettierLast,
   ];
 }
+
+/** TypeScript config with defaults, ready to use as `export { default } from '@cospired/eslint-config-base/typescript'`. */
+export default createTypescriptConfig();
