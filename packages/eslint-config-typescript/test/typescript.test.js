@@ -1,12 +1,11 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
 
-import { lintText, ruleIds, ruleSeverity } from '../../../test-utils/lint.js';
+import { fixtureProject, lintText, ruleIds, ruleSeverity } from '../../../test-utils/lint.js';
 import { createTypescriptConfig } from '../src/index.js';
 
-const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures', 'ts-project');
+const root = fixtureProject;
 const abs = (file) => path.join(root, file);
 const options = { tsconfigPath: [abs('tsconfig.json'), abs('tsconfig.test.json')], tsconfigRootDir: root };
 const config = createTypescriptConfig(options);

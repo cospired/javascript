@@ -1,14 +1,12 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
 
-import { lintText, ruleIds } from '../../../test-utils/lint.js';
+import { fixtureProject, lintText, ruleIds } from '../../../test-utils/lint.js';
 import nodeJsDefault, { createNodeJsConfig } from '../src/node.js';
 
-const fixtures = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures');
-const cjs = path.join(fixtures, 'cjs-project');
-const esm = path.join(fixtures, 'esm-project');
+const cjs = path.join(path.dirname(fixtureProject), 'cjs-project');
+const esm = fixtureProject;
 const cjsCode = "const fs = require('node:fs');\n\nmodule.exports = { fs, cwd: process.cwd() };\n";
 const ids = async (cwd, code, file = 'src/a.js') => ruleIds(await lintText(createNodeJsConfig({ cwd }), code, { filePath: path.join(cwd, file), cwd }));
 

@@ -44,4 +44,4 @@ export default [...createNodeConfig({ tsconfigPath: ['tsconfig.json', 'test/tsco
 
 ## What it adds to the base config
 
-typescript-eslint type-checked recommended + stylistic, explicit return types outside tests, `no-misused-promises`, `consistent-type-imports` (inline), and every typescript-eslint rule configured (see [docs/rules.md](../../docs/rules.md)).
+typescript-eslint type-checked recommended + stylistic, explicit return types outside tests, `no-misused-promises`, `consistent-type-imports` (inline), and every typescript-eslint rule configured.

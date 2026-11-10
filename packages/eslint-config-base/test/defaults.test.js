@@ -1,13 +1,12 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
 
-import { lintText } from '../../../test-utils/lint.js';
+import { fixtureProject, lintText } from '../../../test-utils/lint.js';
 import jsDefault from '../src/index.js';
 import nodeDefault from '../src/node.js';
 
-const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures', 'esm-project');
+const root = fixtureProject;
 const lint = (cfg, code, file) => lintText(cfg, code, { filePath: path.join(root, file), cwd: root });
 const ruleIdsFor = async (cfg, code, file) => [...new Set((await lint(cfg, code, file)).map((m) => m.ruleId))];
 
