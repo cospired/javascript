@@ -13,21 +13,12 @@ The peer dependencies of `@cospired/eslint-config-base` are required as well (se
 
 ## Usage
 
-```js
-// JavaScript
-import config, { globalIgnores } from '@cospired/eslint-config-react';
-
-export default [globalIgnores, ...config];
-```
+No options needed. `eslint.config.js`:
 
 ```js
-// TypeScript: same options as createTypescriptConfig in the base package
-import { createReactTypescriptConfig, globalIgnores } from '@cospired/eslint-config-react/typescript';
-
-export default [
-  globalIgnores,
-  ...createReactTypescriptConfig({ tsconfigRootDir: import.meta.dirname, tsconfigPath: ['tsconfig.app.json'] }),
-];
+export { default } from '@cospired/eslint-config-react/typescript'; // or '@cospired/eslint-config-react' for JavaScript
 ```
 
-formatjs rules apply to all files except `*.test`/`*.spec`. jsx-a11y is not included yet: `eslint-plugin-jsx-a11y` does not support ESLint 10.
+`createReactTypescriptConfig` takes the same options as `createTypescriptConfig` in the base package (`tsconfigPath`, `tsconfigRootDir`, `typedTests`, ...). Add project-specific rules after the config, as described in the base README.
+
+formatjs rules apply to all files except tests. jsx-a11y is not included yet: `eslint-plugin-jsx-a11y` does not support ESLint 10.

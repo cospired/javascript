@@ -31,7 +31,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "test": "node --test 'test/*.test.js'"
+    "test": "node --test test/*.test.js"
   },
   "peerDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",

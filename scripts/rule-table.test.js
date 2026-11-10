@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { buildRuleTable, renderTable } from './rule-table.js';
+import { buildRuleTable, explicitOffRules, renderTable } from './rule-table.js';
 
 const sources = { 'no-console': 'eventured' };
 
@@ -32,4 +32,19 @@ test('renderTable fills the Decision column from the decisions map', () => {
   const md = renderTable('X', [{ rule: 'no-console', ours: 'error', recommended: 'warn', source: 'eventured' }], { 'no-console': 'error, allow warn/error' });
 
   assert.match(md, /\| `no-console` \| error \| warn \| eventured \| error, allow warn\/error \|/);
+});
+
+test('buildRuleTable skips rows where both sides are off, even if only options differ', () => {
+  const table = buildRuleTable([{ rules: { 'no-unused-vars': ['off', { a: 1 }] } }], [{ rules: { 'no-unused-vars': 'off' } }], {});
+
+  assert.deepEqual(table, []);
+});
+
+test('explicitOffRules lists rules our named config items switch off', () => {
+  const config = [
+    { rules: { 'no-var': 'off' } },
+    { name: 'cospired/x', rules: { 'no-plusplus': 'off', eqeqeq: 'error', 'no-void': 0 } },
+  ];
+
+  assert.deepEqual(explicitOffRules(config), ['no-plusplus', 'no-void']);
 });

@@ -29,7 +29,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "test": "node --test 'test/*.test.js'"
+    "test": "node --test test/*.test.js"
   },
   "dependencies": {
     "@cospired/eslint-config-base": "^7.0.2"
