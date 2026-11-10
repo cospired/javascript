@@ -1,6 +1,6 @@
 {
   "name": "@cospired/eslint-config-react-typescript",
-  "version": "0.0.0",
+  "version": "8.0.0",
   "description": "Slightly opinionated ESLint flat config for React with TypeScript",
   "type": "module",
   "files": [
@@ -25,9 +25,9 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "@cospired/eslint-config-base": "^7.0.2",
-    "@cospired/eslint-config-react": "^7.0.0",
-    "@cospired/eslint-config-typescript": "^0.0.0"
+    "@cospired/eslint-config-base": "^8.0.0",
+    "@cospired/eslint-config-react": "^8.0.0",
+    "@cospired/eslint-config-typescript": "^8.0.0"
   },
   "peerDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",

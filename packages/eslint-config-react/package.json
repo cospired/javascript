@@ -1,6 +1,6 @@
 {
   "name": "@cospired/eslint-config-react",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Slightly opinionated ESLint flat config for React (JavaScript)",
   "type": "module",
   "files": [
@@ -32,7 +32,7 @@
     "test": "node --test test/*.test.js"
   },
   "dependencies": {
-    "@cospired/eslint-config-base": "^7.0.2"
+    "@cospired/eslint-config-base": "^8.0.0"
   },
   "peerDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
