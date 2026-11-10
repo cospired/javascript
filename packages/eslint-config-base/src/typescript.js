@@ -2,7 +2,7 @@ import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
 import { createBaseConfig, prettierLast } from './index.js';
-import { importSettings, importXTypescript, sourceOnlyRules, testGlobs, typescriptRules } from './rules/typescript.js';
+import { importSettings, importXTypescript, jsFiles, sourceOnlyRules, testGlobs, typescriptRules } from './rules/typescript.js';
 
 export { globalIgnores } from './ignores.js';
 
@@ -38,8 +38,8 @@ export function createTypescriptConfig({
       settings: importSettings(tsconfigPath),
       rules: typescriptRules,
     }),
-    { files, ignores: testGlobs, rules: sourceOnlyRules },
-    { files: ['**/*.{js,mjs,cjs}'], ...tseslint.configs.disableTypeChecked },
+    { files, ignores: [...testGlobs, ...jsFiles], rules: sourceOnlyRules },
+    { files: jsFiles, ...tseslint.configs.disableTypeChecked },
     ...prettierLast,
   ];
 }

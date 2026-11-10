@@ -1,5 +1,6 @@
 import globals from 'globals';
 
+import { jsFiles } from './rules/typescript.js';
 import { createTypescriptConfig } from './typescript.js';
 
 export { globalIgnores } from './ignores.js';
@@ -19,6 +20,7 @@ export function createNodeConfig(options = {}) {
     { languageOptions: { sourceType: 'module', globals: globals.node } },
     {
       files,
+      ignores: jsFiles,
       rules: {
         // String `||` is deliberate empty-string fallthrough (env vars, trimmed input) that `??` would silently drop.
         '@typescript-eslint/prefer-nullish-coalescing': ['error', { ignorePrimitives: { string: true } }],
