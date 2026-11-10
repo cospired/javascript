@@ -1,70 +1,52 @@
-[![Build Status](https://travis-ci.com/cospired/javascript.svg?branch=master)](https://travis-ci.com/cospired/javascript)
-
 # @cospired/eslint-config-base
 
-This package provides cospired's base JS .eslintrc (without React plugins) as an extensible shared config.
+Slightly opinionated ESLint flat config for JavaScript. Requires ESLint 10 and Node `^22.13 || >=24`.
+
+| Entry | For |
+|---|---|
+| `@cospired/eslint-config-base` | JavaScript (environment neutral) |
+| `@cospired/eslint-config-base/node` | Node.js JavaScript (Node globals; CommonJS and ESM) |
+
+TypeScript: [`@cospired/eslint-config-typescript`](../eslint-config-typescript). React: [`@cospired/eslint-config-react`](../eslint-config-react) and [`-react-typescript`](../eslint-config-react-typescript).
+
+## Install
+
+```sh
+npm i -D @cospired/eslint-config-base @eslint-community/eslint-plugin-eslint-comments @eslint/js @stylistic/eslint-plugin eslint eslint-config-prettier eslint-plugin-import-x eslint-plugin-todo-plz globals
+```
 
 ## Usage
 
-We export one ESLint configurations for your usage.
+No options needed. `eslint.config.js`:
 
-### @cospired/eslint-config-base
+```js
+export { default } from '@cospired/eslint-config-base/node'; // or the package root for environment-neutral JavaScript
+```
 
-Our default export contains all of our ESLint rules, including ECMAScript 6+. It requires `eslint`, `eslint-plugin-eslint-comment`, `eslint-plugin-import` and `@hapi/eslint-plugin-hapi`.
+The defaults ignore build output (`dist`, `build`, `coverage`, ...).
 
-If you use yarn, run `npm info "@cospired/eslint-config-base@latest" peerDependencies` to list the peer dependencies and versions, then run `yarn add --dev <dependency>@<version>` for each listed peer dependency. See below for npm instructions.
+Add your own rules after the config:
 
-1. Install the correct versions of each package, which are listed by the command:
+```js
+import config from '@cospired/eslint-config-base/node';
 
-  ```sh
-  npm info "@cospired/eslint-config-base@latest" peerDependencies
-  ```
+export default [
+  ...config,
+  {
+    files: ['src/domain/**/*.js'],
+    rules: {
+      // project-specific layering rules belong in the project, not in the shared config
+      'no-restricted-imports': ['error', { paths: [{ name: 'fastify', message: 'domain/ must not import fastify.' }] }],
+    },
+  },
+];
+```
 
-  If using **npm 5+**, use this shortcut
+## What it enforces
 
-  ```sh
-  npx install-peerdeps --dev @cospired/eslint-config-base
-  ```
+Every rule is organised per plugin in `src/rules/`, with a comment block (description, reasoning, link) per rule. A test fails when a plugin ships a rule that is neither in a recommended preset nor configured here, so new plugin releases cannot add gaps silently.
 
-  If using **npm < 5**, Linux/OSX users can run
-
-  ```sh
-  (
-    export PKG=@cospired/eslint-config-base;
-    npm info "$PKG@latest" peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs npm install --save-dev "$PKG@latest"
-  )
-  ```
-
-  Which produces and runs a command like:
-
-  ```sh
-    npm install --save-dev @cospired/eslint-config-base eslint@^#.#.# eslint-plugin-import@^#.#.#
-  ```
-
-  If using **npm < 5**, Windows users can either install all the peer dependencies manually, or use the [install-peerdeps](https://github.com/nathanhleung/install-peerdeps) cli tool.
-
-  ```sh
-  npm install -g install-peerdeps
-  install-peerdeps --dev @cospired/eslint-config-base
-  ```
-
-  The cli will produce and run a command like:
-
-  ```sh
-  npm install --save-dev @cospired/eslint-config-base eslint@^#.#.# eslint-plugin-import@^#.#.#
-  ```
-
-2. Add `"extends": "@cospired/eslint-config-base"` to your .eslintrc.
-
-
-## Improving this config
-
-Consider adding test cases if you're making complicated rules changes, like anything involving regexes. Perhaps in a distant future, we could use literate programming to structure our README as test cases for our .eslintrc?
-
-You can run tests with `npm test`.
-
-You can make sure this module lints with itself using `npm run lint`.
-
-# Acknowledgment
-
-This package is based on the [airbnb](https://github.com/airbnb/javascript) javascript styleguide and eslint packages.
+- `eslint-disable` comments need a reason (`-- why`); TODOs need a ticket (`TODO(#123): ...`).
+- Alphabetized imports in groups separated by a blank line; devDependency imports only in test, config and script files.
+- Blank line before `return` and after declarations.
+- No `warn` severities: rules are `error` or off. Downgrade locally if you need to.
