@@ -1,6 +1,6 @@
 # @cospired/eslint-config-typescript
 
-Slightly opinionated, type-aware ESLint flat config for TypeScript, on top of [`@cospired/eslint-config-base`](../eslint-config-base). Requires ESLint 10 and Node `^20.19 || ^22.13 || >=24`.
+Slightly opinionated, type-aware ESLint flat config for TypeScript, on top of [`@cospired/eslint-config-base`](../eslint-config-base). Requires ESLint 10 and Node `^22.13 || >=24`.
 
 | Entry | For |
 |---|---|

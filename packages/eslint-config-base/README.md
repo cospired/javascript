@@ -1,6 +1,6 @@
 # @cospired/eslint-config-base
 
-Slightly opinionated ESLint flat config for JavaScript. Requires ESLint 10 and Node `^20.19 || ^22.13 || >=24`.
+Slightly opinionated ESLint flat config for JavaScript. Requires ESLint 10 and Node `^22.13 || >=24`.
 
 | Entry | For |
 |---|---|
