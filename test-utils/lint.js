@@ -9,12 +9,12 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 export const fixtureProject = path.join(here, 'fixtures', 'ts-project');
 
 /** Lint `code` with a flat config array; returns the flattened messages. */
-export async function lintText(config, code, { filePath = 'src/sample.ts' } = {}) {
+export async function lintText(config, code, { filePath = 'src/sample.ts', cwd } = {}) {
   filePath = path.resolve(fixtureProject, filePath);
   const eslint = new ESLint({
     overrideConfigFile: true,
     overrideConfig: config,
-    cwd: path.dirname(filePath),
+    cwd: cwd ?? path.dirname(filePath),
   });
   const [result] = await eslint.lintText(code, { filePath });
   return result.messages;
