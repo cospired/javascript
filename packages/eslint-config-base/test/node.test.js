@@ -2,28 +2,21 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
 
-import { fixtureProject, lintText, ruleIds } from '../../../test-utils/lint.js';
-import nodeJsDefault, { createNodeJsConfig } from '../src/node.js';
+import { fixtureProject, lintText } from '../../../test-utils/lint.js';
+import nodeJsDefault from '../src/node.js';
 
-const cjs = path.join(path.dirname(fixtureProject), 'cjs-project');
-const esm = fixtureProject;
-const cjsCode = "const fs = require('node:fs');\n\nmodule.exports = { fs, cwd: process.cwd() };\n";
-const ids = async (cwd, code, file = 'src/a.js') => ruleIds(await lintText(createNodeJsConfig({ cwd }), code, { filePath: path.join(cwd, file), cwd }));
+const lint = (code, file = 'src/a.js') => lintText(nodeJsDefault, code, { filePath: path.join(fixtureProject, file), cwd: fixtureProject });
 
-test('CommonJS package (no "type"): require/module/process are defined', async () => {
-  const found = await ids(cjs, cjsCode);
+test('CommonJS code parses, and require/module/process are defined', async () => {
+  const messages = await lint("const fs = require('node:fs');\n\nmodule.exports = { fs, cwd: process.cwd() };\n");
 
-  assert.ok(!found.includes('no-undef'), found.join());
+  assert.deepEqual(messages.filter((m) => m.fatal || m.ruleId === 'no-undef'), []);
 });
 
-test('ESM package ("type": "module"): CommonJS globals are not defined', async () => {
-  assert.ok((await ids(esm, cjsCode)).includes('no-undef'));
-});
+test('ESM code parses in .js, whatever the surrounding package.json says (monorepo root without "type")', async () => {
+  const messages = await lint("import { cwd } from 'node:process';\n\nexport const here = cwd();\n");
 
-test('node globals exist either way', async () => {
-  const code = 'export const c = process.cwd();\n';
-
-  assert.ok(!(await ids(esm, code)).includes('no-undef'));
+  assert.deepEqual(messages.filter((m) => m.fatal), []);
 });
 
 test('default export is a ready-made config array with the global ignores', () => {

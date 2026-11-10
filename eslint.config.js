@@ -1,4 +1,4 @@
-import nodeJs from './packages/eslint-config-base/src/node.js';
+import nodeJs from '@cospired/eslint-config-base/node';
 
 // The repo lints itself with the config it ships.
 export default [

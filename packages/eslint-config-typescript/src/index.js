@@ -50,5 +50,5 @@ export function createTypescriptConfig({
   ];
 }
 
-/** TypeScript config with defaults, ready to use as `export { default } from '@cospired/eslint-config-base/typescript'`. */
+/** TypeScript config with defaults, ready to use as `export { default } from '@cospired/eslint-config-typescript'`. */
 export default createTypescriptConfig();

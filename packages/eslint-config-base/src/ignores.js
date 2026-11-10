@@ -12,7 +12,5 @@ export const globalIgnores = {
     '**/*.log',
     '**/.cache/**',
     '**/.turbo/**',
-    'eslint.config.js',
-    'eslint-*.config.js',
   ],
 };

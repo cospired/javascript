@@ -5,7 +5,7 @@ Slightly opinionated ESLint flat config for JavaScript. Requires ESLint 10 and N
 | Entry | For |
 |---|---|
 | `@cospired/eslint-config-base` | JavaScript (environment neutral) |
-| `@cospired/eslint-config-base/node` | Node.js JavaScript (Node globals, CommonJS or ESM from your `package.json` `type`) |
+| `@cospired/eslint-config-base/node` | Node.js JavaScript (Node globals; CommonJS and ESM) |
 
 TypeScript: [`@cospired/eslint-config-typescript`](../eslint-config-typescript). React: [`@cospired/eslint-config-react`](../eslint-config-react) and [`-react-typescript`](../eslint-config-react-typescript).
 
@@ -23,7 +23,7 @@ No options needed. `eslint.config.js`:
 export { default } from '@cospired/eslint-config-base/node'; // or the package root for environment-neutral JavaScript
 ```
 
-The defaults ignore build output (`dist`, `build`, `coverage`, ...). `createNodeJsConfig({ cwd })` (from `/node`) takes the directory whose `package.json` decides CommonJS vs ESM.
+The defaults ignore build output (`dist`, `build`, `coverage`, ...).
 
 Add your own rules after the config:
 
