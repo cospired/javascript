@@ -1,14 +1,16 @@
-import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 
-import comments from './rules/comments.js';
-import general from './rules/general.js';
-import { createImportsConfig } from './rules/imports.js';
-import style from './rules/style.js';
+import { withMonorepoTwins } from './globs.js';
+import eslintCore from './rules/eslint.js';
+import eslintComments from './rules/eslint-comments.js';
+import { createImportsConfig } from './rules/import-x.js';
+import stylistic from './rules/stylistic.js';
+import todoPlz from './rules/todo-plz.js';
 
+export { anyTestGlobs, testGlobs, withMonorepoTwins } from './globs.js';
 export { globalIgnores } from './ignores.js';
-export { createImportsConfig, defaultDevDependencyGlobs } from './rules/imports.js';
+export { createImportsConfig, defaultDevDependencyGlobs } from './rules/import-x.js';
 
 /**
  * eslint-config-prettier disables `curly`, so it must be re-enabled after it. Every config ends with these.
@@ -22,13 +24,13 @@ export const prettierLast = [prettier, { rules: { curly: ['error', 'multi-line']
  */
 export function createBaseConfig(importOptions) {
   return [
-    js.configs.recommended,
-    comments,
+    ...eslintCore,
+    eslintComments,
     createImportsConfig(importOptions),
-    style,
-    general,
+    todoPlz,
+    stylistic,
     // Build/CLI scripts run on Node and print to the console.
-    { files: ['scripts/**/*.{mjs,js,ts}'], languageOptions: { globals: globals.node }, rules: { 'no-console': 'off' } },
+    { files: withMonorepoTwins(['scripts/**/*.{js,mjs,cjs,ts,mts,cts}']), languageOptions: { globals: globals.node }, rules: { 'no-console': 'off' } },
     ...prettierLast,
   ];
 }

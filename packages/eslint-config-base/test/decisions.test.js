@@ -72,3 +72,17 @@ test('scripts/ files get node globals in every base config', async () => {
   }
   assert.ok((await lint('process.exit(1);\n', 'src/run.mjs', tsConfig)).includes('no-undef'));
 });
+
+test('test-file globs also match from a monorepo root config', async () => {
+  const { testGlobs } = await import('../src/globs.js');
+  for (const glob of ['test/**', '**/__tests__/**', '**/*.{test,spec}.{ts,tsx,mts,cts}']) {
+    assert.ok(testGlobs.includes(glob) && testGlobs.includes(`{apps,packages}/*/${glob}`), glob);
+  }
+});
+
+test('console is allowed in scripts of every extension', async () => {
+  for (const ext of ['js', 'mjs', 'cjs', 'ts', 'mts', 'cts']) {
+    const found = await lint('console.log(1);\n', `scripts/x.${ext}`, createTypescriptConfig(tsOptions));
+    assert.ok(!found.includes('no-console'), ext);
+  }
+});

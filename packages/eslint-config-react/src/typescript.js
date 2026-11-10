@@ -3,6 +3,8 @@ import { createTypescriptConfig, globalIgnores } from '@cospired/eslint-config-b
 
 import formatjs from './rules/formatjs.js';
 import react from './rules/react.js';
+import reactHooks from './rules/react-hooks.js';
+import reactRefresh from './rules/react-refresh.js';
 
 export { globalIgnores };
 
@@ -13,5 +15,5 @@ export { globalIgnores };
  * @returns {import('eslint').Linter.Config[]}
  */
 export function createReactTypescriptConfig(options = {}) {
-  return [...createTypescriptConfig(options), ...react, formatjs, ...prettierLast];
+  return [...createTypescriptConfig(options), ...react, ...reactHooks, reactRefresh, formatjs, ...prettierLast];
 }

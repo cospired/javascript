@@ -1,6 +1,6 @@
 import globals from 'globals';
 
-import { jsFiles } from './rules/typescript.js';
+import { jsFiles } from './globs.js';
 import { createTypescriptConfig } from './typescript.js';
 
 export { globalIgnores } from './ignores.js';

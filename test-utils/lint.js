@@ -54,9 +54,9 @@ export function missingRules(config) {
 }
 
 /** The severity (0|1|2) a rule has for `filePath` once all config objects are merged. */
-export async function ruleSeverity(config, ruleId, filePath = 'src/sample.ts') {
+export async function ruleSeverity(config, ruleId, filePath = 'src/sample.ts', cwd) {
   filePath = path.resolve(fixtureProject, filePath);
-  const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: config, cwd: path.dirname(filePath) });
+  const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: config, cwd: cwd ?? path.dirname(filePath) });
   const entry = (await eslint.calculateConfigForFile(filePath)).rules?.[ruleId];
 
   return Array.isArray(entry) ? entry[0] : entry;
@@ -69,4 +69,38 @@ export async function warnRules(config, filePath = 'src/sample.ts', cwd) {
   const { rules = {} } = await eslint.calculateConfigForFile(filePath);
 
   return Object.entries(rules).filter(([, entry]) => (Array.isArray(entry) ? entry[0] : entry) === 1).map(([id]) => id).sort();
+}
+
+/** Non-deprecated rules of `namespaces` that no config item sets, whether on or off. */
+export function unconfiguredRules(config, namespaces, pluginRules) {
+  const configured = new Set(config.flatMap((item) => Object.keys(item.rules ?? {})));
+
+  return namespaces.flatMap((ns) =>
+    Object.entries(pluginRules[ns])
+      .filter(([, rule]) => !rule.meta?.deprecated)
+      .map(([name]) => (ns ? `${ns}/${name}` : name))
+      .filter((id) => !configured.has(id)),
+  );
+}
+
+const normalize = (entry) => {
+  const [level, ...options] = Array.isArray(entry) ? entry : [entry];
+  const severity = { off: 0, warn: 1, error: 2 }[level] ?? level;
+
+  return JSON.stringify([severity, ...options]);
+};
+
+/** Rules set by a config item named `cospired/*` to the value that was already in effect (an override that changes nothing). */
+export function redundantRules(config) {
+  const effective = {};
+  const redundant = new Set();
+
+  for (const item of config) {
+    for (const [id, entry] of Object.entries(item.rules ?? {})) {
+      if (item.name?.startsWith('cospired/') && id in effective && normalize(effective[id]) === normalize(entry)) redundant.add(id);
+      effective[id] = entry;
+    }
+  }
+
+  return [...redundant].sort();
 }
