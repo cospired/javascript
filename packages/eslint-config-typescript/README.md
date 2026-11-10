@@ -21,7 +21,7 @@ No options needed. `eslint.config.js`:
 export { default } from '@cospired/eslint-config-typescript/node'; // or the package root
 ```
 
-It uses typescript-eslint's project service to find your tsconfigs, ignores build output, and lints tests, scripts and package-root TypeScript files (`vitest.config.ts`, ...) without type information, since build tsconfigs usually exclude them.
+It uses typescript-eslint's project service to find your tsconfigs, ignores build output, and lints tests, scripts and package-root TypeScript files (bundler, test runner or ORM configs) without type information, since build tsconfigs usually exclude them.
 
 ### Options
 

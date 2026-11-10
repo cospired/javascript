@@ -7,7 +7,7 @@ export const jsFiles = ['**/*.{js,jsx,mjs,cjs}'];
 
 /**
  * Files linted without type information unless `typedTests: true`: tests, TypeScript files at the package root
- * (vitest.config.ts, drizzle.config.ts, ...) and scripts. They are often not part of any tsconfig (build configs
+ * (bundler, test runner or ORM configs such as `tool.config.ts`) and scripts. They are often not part of any tsconfig (build configs
  * exclude them), and type-aware linting reports a parsing error for such files.
  */
 export const untypedGlobs = [...testGlobs, ...withMonorepoTwins(['*.{ts,mts,cts}', 'scripts/**/*.{ts,mts,cts}'])];

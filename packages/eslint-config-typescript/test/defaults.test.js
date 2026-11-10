@@ -31,7 +31,7 @@ test('zero options: TS files lint via the project service, no parse errors', asy
 });
 
 test('zero options: test and config files outside every tsconfig lint without type information', async () => {
-  for (const file of ['other/c.test.ts', 'vitest.config.ts', 'vitest.shared.ts']) {
+  for (const file of ['other/c.test.ts', 'tool.config.ts', 'tool.shared.ts']) {
     for (const cfg of [tsDefault, nodeDefault]) {
       const messages = await lint(cfg, 'export const v = 1;\n', file);
 
