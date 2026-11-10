@@ -25,4 +25,4 @@ npx changeset   # describe a change for the next release
 
 Releases are cut by the changesets GitHub Action on `main`.
 
-CI runs the tests on Node 22.13, 24 and 26, again with every peer dependency at its minimum version, and the pack smoke test.
+CI runs the tests on Node 22.13, 24, 26 and the latest release, again with every peer dependency at its minimum version, and the pack smoke test.

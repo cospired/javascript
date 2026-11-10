@@ -4,7 +4,8 @@ import test from 'node:test';
 
 import jsDefault from '@cospired/eslint-config-base';
 
-import { fixtureProject, lintText } from '../../../test-utils/lint.js';
+import { fixtureProject, lintText, warnRules } from '../../../test-utils/lint.js';
+import { testGlobs } from '../src/globs.js';
 import tsDefault, { createTypescriptConfig } from '../src/index.js';
 import nodeDefault from '../src/node.js';
 
@@ -60,4 +61,21 @@ test('import-x/first is off in tests (vi.mock hoisting) and on in source', async
 
   assert.ok(!(await ruleIdsFor(tsDefault, code, 'other/c.test.ts')).includes('import-x/first'));
   assert.ok((await ruleIdsFor(tsDefault, code, 'src/b.ts')).includes('import-x/first'));
+});
+
+test('no rule resolves to "warn": consumers lint with --max-warnings 0', async () => {
+  assert.deepEqual(await warnRules(tsDefault, path.join(root, 'src/a.ts'), root), []);
+  assert.deepEqual(await warnRules(nodeDefault, path.join(root, 'src/a.ts'), root), []);
+});
+
+test('scripts/ get node globals and may log, in every extension', async () => {
+  for (const ext of ['js', 'mjs', 'cjs', 'ts', 'mts', 'cts']) {
+    const found = await ruleIdsFor(nodeDefault, 'process.exit(1);\nconsole.log(1);\n', `scripts/x.${ext}`);
+
+    assert.ok(!found.includes('no-undef') && !found.includes('no-console'), ext);
+  }
+});
+
+test('test-file globs also match from a monorepo root config', () => {
+  for (const glob of ['test/**', '**/__tests__/**']) assert.ok(testGlobs.includes(glob) && testGlobs.includes(`{apps,packages}/*/${glob}`), glob);
 });
