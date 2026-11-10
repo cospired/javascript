@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
 
-import { fixtureProject, lintText } from '../../../test-utils/lint.js';
+import { fixtureProject, lintText, warnRules } from '../../../test-utils/lint.js';
+import { anyTestGlobs } from '../src/globs.js';
 import jsDefault from '../src/index.js';
 import nodeDefault from '../src/node.js';
 
@@ -28,4 +29,27 @@ test('import-x/first is off in tests (vi.mock hoisting) and on in source', async
 
   assert.ok(!(await ruleIdsFor(jsDefault, code, 'src/b.test.js')).includes('import-x/first'));
   assert.ok((await ruleIdsFor(jsDefault, code, 'src/b.js')).includes('import-x/first'));
+});
+
+test('no rule resolves to "warn": consumers lint with --max-warnings 0', async () => {
+  assert.deepEqual(await warnRules(jsDefault, path.join(root, 'src/a.js'), root), []);
+  assert.deepEqual(await warnRules(nodeDefault, path.join(root, 'src/a.js'), root), []);
+});
+
+test('scripts/ get node globals and may log, in every extension', async () => {
+  for (const ext of ['js', 'mjs', 'cjs']) {
+    const found = await ruleIdsFor(jsDefault, 'process.exit(1);\nconsole.log(1);\n', `scripts/x.${ext}`);
+
+    assert.ok(!found.includes('no-undef') && !found.includes('no-console'), ext);
+  }
+});
+
+test('explicit index.js imports are not "useless" (ESM has no directory imports)', async () => {
+  const found = await ruleIdsFor(jsDefault, "import { a } from './index.js';\n\nexport const b = a;\n", 'src/b.js');
+
+  assert.ok(!found.includes('import-x/no-useless-path-segments'));
+});
+
+test('test-file globs also match from a monorepo root config', () => {
+  for (const glob of ['test/**', '**/__tests__/**']) assert.ok(anyTestGlobs.includes(glob) && anyTestGlobs.includes(`{apps,packages}/*/${glob}`), glob);
 });
