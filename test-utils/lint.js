@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { ESLint } from 'eslint';
+import { builtinRules } from 'eslint/use-at-your-own-risk';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
@@ -36,4 +37,18 @@ export function loadedRules(config) {
     }
   }
   return rules;
+}
+
+/** Rule ids in a config whose rule (or whose plugin) is not installed. */
+export function missingRules(config) {
+  const plugins = Object.assign({}, ...config.map((item) => item.plugins ?? {}));
+  const ids = loadedRules(config);
+
+  return [...ids].filter((id) => {
+    const slash = id.lastIndexOf('/');
+    if (slash === -1) return !builtinRules.has(id);
+    const plugin = plugins[id.slice(0, slash)];
+
+    return !plugin?.rules?.[id.slice(slash + 1)];
+  });
 }
