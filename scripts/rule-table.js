@@ -75,9 +75,9 @@ async function main() {
     import('@eslint/js'),
     import('typescript-eslint'),
     import('../packages/eslint-config-base/src/index.js'),
-    import('../packages/eslint-config-base/src/typescript.js'),
+    import('../packages/eslint-config-typescript/src/index.js'),
     import('../packages/eslint-config-react/src/index.js'),
-    import('../packages/eslint-config-react/src/typescript.js'),
+    import('../packages/eslint-config-react-typescript/src/index.js'),
   ]);
   const sources = JSON.parse(fs.readFileSync(path.join(here, 'rule-sources.json'), 'utf8'));
   const decisions = JSON.parse(fs.readFileSync(path.join(here, 'rule-decisions.json'), 'utf8'));

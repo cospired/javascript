@@ -1,7 +1,6 @@
-import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import importX, { flatConfigs } from 'eslint-plugin-import-x';
 
-import { tsExtensions, withMonorepoTwins } from '../globs.js';
+import { withMonorepoTwins } from '../globs.js';
 
 /**
  * Where a devDependency import is allowed. Patterns are relative to the directory of the eslint config file;
@@ -86,21 +85,5 @@ export function createImportsConfig({ devDependencyGlobs = defaultDevDependencyG
       'import-x/prefer-namespace-import': 'off',
       'import-x/unambiguous': 'off',
     },
-  };
-}
-
-/** TypeScript-only import-x config: the typescript preset and a type-import style that matches `consistent-type-imports`. */
-export const importXTypescript = flatConfigs.typescript;
-export const importXTypescriptRules = { 'import-x/consistent-type-specifier-style': ['error', 'prefer-inline'] };
-
-/** import-x settings so `#alias`, tsconfig `paths` and `.js`-to-`.ts` imports resolve. */
-export function importSettings(project) {
-  return {
-    'import-x/extensions': ['.js', '.jsx', '.mjs', '.cjs', ...tsExtensions],
-    'import-x/parsers': { '@typescript-eslint/parser': tsExtensions },
-    'import-x/resolver-next': [
-      // Several projects is the intended shape (app + test-only tsconfigs); the suggested `references` fix needs `composite`.
-      createTypeScriptImportResolver({ alwaysTryTypes: true, noWarnOnMultipleProjects: true, ...(project && { project }) }),
-    ],
   };
 }

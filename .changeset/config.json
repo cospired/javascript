@@ -4,5 +4,13 @@
   "commit": false,
   "access": "public",
   "baseBranch": "main",
-  "updateInternalDependencies": "patch"
+  "updateInternalDependencies": "patch",
+  "fixed": [
+    [
+      "@cospired/eslint-config-base",
+      "@cospired/eslint-config-typescript",
+      "@cospired/eslint-config-react",
+      "@cospired/eslint-config-react-typescript"
+    ]
+  ]
 }

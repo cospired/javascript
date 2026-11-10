@@ -1,4 +1,4 @@
-import nodeJs from './packages/eslint-config-base/src/node-js.js';
+import nodeJs from './packages/eslint-config-base/src/node.js';
 
 // The repo lints itself with the config it ships.
 export default [

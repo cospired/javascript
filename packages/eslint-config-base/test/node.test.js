@@ -4,47 +4,31 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 import { lintText, ruleIds } from '../../../test-utils/lint.js';
-import { createNodeConfig } from '../src/node.js';
-import { createTypescriptConfig } from '../src/typescript.js';
+import nodeJsDefault, { createNodeJsConfig } from '../src/node.js';
 
-const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures', 'ts-project');
-const options = { tsconfigPath: [path.join(root, 'tsconfig.json')], tsconfigRootDir: root };
-const node = createNodeConfig(options);
-const ids = async (cfg, code, file) => {
-  const messages = await lintText(cfg, code, { filePath: path.join(root, file), cwd: root });
+const fixtures = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures');
+const cjs = path.join(fixtures, 'cjs-project');
+const esm = path.join(fixtures, 'esm-project');
+const cjsCode = "const fs = require('node:fs');\n\nmodule.exports = { fs, cwd: process.cwd() };\n";
+const ids = async (cwd, code, file = 'src/a.js') => ruleIds(await lintText(createNodeJsConfig({ cwd }), code, { filePath: path.join(cwd, file), cwd }));
 
-  assert.deepEqual(messages.filter((m) => m.fatal), [], 'fixture must parse');
+test('CommonJS package (no "type"): require/module/process are defined', async () => {
+  const found = await ids(cjs, cjsCode);
 
-  return ruleIds(messages);
-};
-
-test('node globals are defined (process is not no-undef)', async () => {
-  const code = 'process.exit(1);\n';
-
-  assert.ok((await ids(createTypescriptConfig(options), code, 'src/x.mjs')).includes('no-undef'));
-  assert.ok(!(await ids(node, code, 'src/x.mjs')).includes('no-undef'));
+  assert.ok(!found.includes('no-undef'), found.join());
 });
 
-test('string || fallback is allowed, number || fallback is flagged', async () => {
-  const rule = '@typescript-eslint/prefer-nullish-coalescing';
-  const str = "export function f(s: string | undefined): string {\n  return s || 'x';\n}\n";
-  const num = 'export function f(n: number | undefined): number {\n  return n || 1;\n}\n';
-
-  assert.ok(!(await ids(node, str, 'src/a.ts')).includes(rule));
-  assert.ok((await ids(node, num, 'src/a.ts')).includes(rule));
+test('ESM package ("type": "module"): CommonJS globals are not defined', async () => {
+  assert.ok((await ids(esm, cjsCode)).includes('no-undef'));
 });
 
-test('no-console is allowed in scripts/ but not in src/', async () => {
-  const code = 'console.log(1);\n';
+test('node globals exist either way', async () => {
+  const code = 'export const c = process.cwd();\n';
 
-  assert.ok(!(await ids(node, code, 'scripts/run.mjs')).includes('no-console'));
-  assert.ok((await ids(node, code, 'src/run.mjs')).includes('no-console'));
+  assert.ok(!(await ids(esm, code)).includes('no-undef'));
 });
 
-test('JS files matched by `files` are linted without type-aware rules (no crash)', async () => {
-  const cfg = createNodeConfig({ ...options, files: ['src/**/*.{ts,js}', '*.{ts,js}'] });
-  const found = await ids(cfg, 'export const a = (x) => x || 1;\n', 'src/c.js');
-
-  assert.ok(!found.includes('@typescript-eslint/prefer-nullish-coalescing'));
-  assert.ok(!found.includes('@typescript-eslint/explicit-function-return-type'));
+test('default export is a ready-made config array with the global ignores', () => {
+  assert.ok(Array.isArray(nodeJsDefault));
+  assert.ok(nodeJsDefault.some((item) => item.ignores?.includes('**/dist/**')));
 });

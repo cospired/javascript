@@ -9,7 +9,7 @@ import { createImportsConfig } from './rules/import-x.js';
 import stylistic from './rules/stylistic.js';
 import todoPlz from './rules/todo-plz.js';
 
-export { anyTestGlobs, testGlobs, withMonorepoTwins } from './globs.js';
+export { anyTestGlobs, withMonorepoTwins } from './globs.js';
 export { globalIgnores } from './ignores.js';
 export { createImportsConfig, defaultDevDependencyGlobs } from './rules/import-x.js';
 

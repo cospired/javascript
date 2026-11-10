@@ -9,7 +9,8 @@ const root = path.resolve(import.meta.dirname, '..');
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'cospired-smoke-'));
 const run = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, stdio: ['ignore', 'pipe', 'inherit'], encoding: 'utf8' });
 
-const tarballs = ['eslint-config-base', 'eslint-config-react'].map((dir) => {
+const packages = ['eslint-config-base', 'eslint-config-typescript', 'eslint-config-react', 'eslint-config-react-typescript'];
+const tarballs = packages.map((dir) => {
   const [{ filename }] = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', tmp], path.join(root, 'packages', dir)));
 
   return path.join(tmp, filename);
@@ -17,7 +18,7 @@ const tarballs = ['eslint-config-base', 'eslint-config-react'].map((dir) => {
 
 const peers = {};
 
-for (const dir of ['eslint-config-base', 'eslint-config-react']) {
+for (const dir of packages) {
   Object.assign(peers, JSON.parse(fs.readFileSync(path.join(root, 'packages', dir, 'package.json'), 'utf8')).peerDependencies);
 }
 const project = path.join(tmp, 'project');
@@ -29,11 +30,11 @@ run('npm', ['install', '--no-audit', '--no-fund', ...tarballs], project);
 const clean = 'export function add(a: number, b: number): number {\n  return a + b;\n}\n';
 const cases = [
   ['js', '@cospired/eslint-config-base', 'src/index.js', 'export const answer = 42;\n'],
-  ['node-js', '@cospired/eslint-config-base/node-js', 'src/index.js', "import { cwd } from 'node:process';\n\nexport const here = cwd();\n"],
-  ['typescript', '@cospired/eslint-config-base/typescript', 'src/index.ts', clean],
-  ['node', '@cospired/eslint-config-base/node', 'src/index.ts', clean],
+  ['node-js', '@cospired/eslint-config-base/node', 'src/index.js', "import { cwd } from 'node:process';\n\nexport const here = cwd();\n"],
+  ['typescript', '@cospired/eslint-config-typescript', 'src/index.ts', clean],
+  ['node', '@cospired/eslint-config-typescript/node', 'src/index.ts', clean],
   ['react', '@cospired/eslint-config-react', 'src/index.jsx', 'export const App = () => <div />;\n'],
-  ['react-typescript', '@cospired/eslint-config-react/typescript', 'src/index.tsx', 'export const App = (): null => null;\n'],
+  ['react-typescript', '@cospired/eslint-config-react-typescript', 'src/index.tsx', 'export const App = (): null => null;\n'],
 ];
 let failed = false;
 
