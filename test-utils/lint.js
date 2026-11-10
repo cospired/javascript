@@ -52,3 +52,12 @@ export function missingRules(config) {
     return !plugin?.rules?.[id.slice(slash + 1)];
   });
 }
+
+/** The severity (0|1|2) a rule has for `filePath` once all config objects are merged. */
+export async function ruleSeverity(config, ruleId, filePath = 'src/sample.ts') {
+  filePath = path.resolve(fixtureProject, filePath);
+  const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: config, cwd: path.dirname(filePath) });
+  const entry = (await eslint.calculateConfigForFile(filePath)).rules?.[ruleId];
+
+  return Array.isArray(entry) ? entry[0] : entry;
+}
