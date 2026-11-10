@@ -1,11 +1,10 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-import { lintText, ruleIds } from '../../../test-utils/lint.js';
+import { fixtureProject, lintText, ruleIds } from '../../../test-utils/lint.js';
 import { createReactTypescriptConfig } from '../src/index.js';
 
-export const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures', 'ts-project');
+export const root = fixtureProject;
 export const tsConfig = createReactTypescriptConfig({ tsconfigPath: [path.join(root, 'tsconfig.json')], tsconfigRootDir: root });
 
 /** Rule ids for `code` at `file` (relative to the fixture project); asserts the file parses. */

@@ -44,7 +44,7 @@ export default [
 
 ## What it enforces
 
-Every rule is organised per plugin in `src/rules/`, with a comment block (description, reasoning, link) per rule, and listed with its decision in [docs/rules.md](../../docs/rules.md). A test fails when a plugin ships a rule that is neither in a recommended preset nor configured here, so new plugin releases cannot add gaps silently.
+Every rule is organised per plugin in `src/rules/`, with a comment block (description, reasoning, link) per rule. A test fails when a plugin ships a rule that is neither in a recommended preset nor configured here, so new plugin releases cannot add gaps silently.
 
 - `eslint-disable` comments need a reason (`-- why`); TODOs need a ticket (`TODO(#123): ...`).
 - Alphabetized imports in groups separated by a blank line; devDependency imports only in test, config and script files.

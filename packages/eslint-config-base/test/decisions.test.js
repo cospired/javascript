@@ -1,14 +1,13 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
 
-import { loadedRules, lintText, ruleIds, warnRules } from '../../../test-utils/lint.js';
+import { fixtureProject, lintText, loadedRules, ruleIds, warnRules } from '../../../test-utils/lint.js';
 import { anyTestGlobs } from '../src/globs.js';
 import config from '../src/index.js';
 import nodeConfig from '../src/node.js';
 
-const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures', 'esm-project');
+const root = fixtureProject;
 const lint = async (code, file = 'src/a.js', cfg = config) => ruleIds(await lintText(cfg, code, { filePath: path.join(root, file), cwd: root }));
 
 // [rule, code that must be flagged, code that must pass]

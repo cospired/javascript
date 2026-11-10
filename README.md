@@ -11,16 +11,15 @@ Slightly opinionated ESLint flat configs (ESLint 10) for JavaScript and TypeScri
 
 Every entry works with no options: `export { default } from '@cospired/eslint-config-typescript/node';` is a complete `eslint.config.js`.
 
-Every rule that differs from ESLint/typescript-eslint recommended, with its source and the decision taken, is listed in [docs/rules.md](docs/rules.md). Upgrading from 7.x: [MIGRATION.md](MIGRATION.md).
+Every rule is documented in the rule files under `packages/*/src/rules/`: a comment block with the description, the reasoning and a link.
 
 ## Development
 
 ```sh
 npm install
-npm test        # node:test over every package, the test helpers and the rule-table script
+npm test        # node:test over every package and the test helpers
 npm run lint    # the repo lints itself with its own config
-npm run smoke   # pack both packages, install them in a clean project, lint with one-line configs
-npm run rules   # regenerate docs/rules.md
+npm run smoke   # pack the packages, install them in a clean project, lint with one-line configs
 npx changeset   # describe a change for the next release
 ```
 
