@@ -1,6 +1,6 @@
 import globals from 'globals';
 
-import { jsFiles } from './globs.js';
+import { jsFiles, untypedGlobs } from './globs.js';
 
 export { globalIgnores } from './ignores.js';
 import { createTypescriptConfig } from './typescript.js';
@@ -14,14 +14,14 @@ import { createTypescriptConfig } from './typescript.js';
  * @returns {import('eslint').Linter.Config[]}
  */
 export function createNodeConfig(options = {}) {
-  const { files = ['**/*.{ts,tsx,mts,cts}'] } = options;
+  const { files = ['**/*.{ts,tsx,mts,cts}'], typedTests = false } = options;
 
   return [
     ...createTypescriptConfig(options),
     { languageOptions: { sourceType: 'module', globals: globals.node } },
     {
       files,
-      ignores: jsFiles,
+      ignores: typedTests ? jsFiles : [...jsFiles, ...untypedGlobs],
       rules: {
         // String `||` is deliberate empty-string fallthrough (env vars, trimmed input) that `??` would silently drop.
         '@typescript-eslint/prefer-nullish-coalescing': ['error', { ignorePrimitives: { string: true } }],

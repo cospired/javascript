@@ -3,10 +3,10 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { lintText, ruleIds } from '../../../test-utils/lint.js';
+import { lintText } from '../../../test-utils/lint.js';
 import jsDefault from '../src/index.js';
 import nodeDefault from '../src/node.js';
-import tsDefault from '../src/typescript.js';
+import tsDefault, { createTypescriptConfig } from '../src/typescript.js';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures', 'ts-project');
 const lint = (cfg, code, file) => lintText(cfg, code, { filePath: path.join(root, file), cwd: root });
@@ -27,17 +27,21 @@ test('zero options: TS files lint via the project service, no parse errors', asy
   }
 });
 
-test('zero options: a *.config.ts outside every tsconfig still lints (default project)', async () => {
-  // typescript-eslint resolves allowDefaultProject globs against the cwd, i.e. the package being linted.
-  const previous = process.cwd();
-  process.chdir(root);
-  try {
-    const messages = await lint(nodeDefault, 'export default { test: true };\n', 'vitest.config.ts');
-    assert.deepEqual(messages.filter((m) => m.fatal), []);
-    assert.ok(!ruleIds(messages).includes('@typescript-eslint/explicit-function-return-type'));
-  } finally {
-    process.chdir(previous);
+test('zero options: test and config files outside every tsconfig lint without type information', async () => {
+  for (const file of ['other/c.test.ts', 'vitest.config.ts']) {
+    for (const cfg of [tsDefault, nodeDefault]) {
+      const messages = await lint(cfg, 'export const v = 1;\n', file);
+      assert.deepEqual(messages.filter((m) => m.fatal), [], file);
+    }
   }
+});
+
+test('typedTests: true lints tests with type information (they must be in a tsconfig)', async () => {
+  const typed = createTypescriptConfig({ typedTests: true, tsconfigRootDir: root });
+  const outside = await lint(typed, 'export const v = 1;\n', 'other/c.test.ts');
+  assert.ok(outside.some((m) => m.fatal), 'a test outside every tsconfig reports a parsing error');
+  const inside = await lint(typed, 'export const v = 1;\n', 'src/a.ts');
+  assert.deepEqual(inside.filter((m) => m.fatal), []);
 });
 
 test('zero options: dist output is ignored', async () => {

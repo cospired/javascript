@@ -3,7 +3,7 @@ import tseslint from 'typescript-eslint';
 
 import { globalIgnores } from './ignores.js';
 import { createBaseConfig, prettierLast } from './index.js';
-import { jsFiles, testGlobs } from './globs.js';
+import { jsFiles, testGlobs, untypedGlobs } from './globs.js';
 import { importSettings, importXTypescript, importXTypescriptRules } from './rules/import-x.js';
 import { sourceOnlyRules, typescriptRules } from './rules/typescript-eslint.js';
 
@@ -17,6 +17,7 @@ export { globalIgnores };
  *   Without it typescript-eslint's project service finds them.
  * @param {string} [options.tsconfigRootDir] Pass `import.meta.dirname` when one ESLint run loads several workspace configs.
  * @param {string[]} [options.files] TS files to apply type-aware rules to.
+ * @param {boolean} [options.typedTests] Lint test, config and script files with type information too (they must then belong to a tsconfig).
  * @param {string[]} [options.devDependencyGlobs] Files that may import devDependencies.
  * @param {{ pathGroups?: object[] }} [options.importOrder] Extra `import-x/order` path groups, e.g. `#alias/**` as `internal`.
  * @returns {import('eslint').Linter.Config[]}
@@ -27,10 +28,11 @@ export function createTypescriptConfig({
   files = ['**/*.{ts,tsx,mts,cts}'],
   devDependencyGlobs,
   importOrder = {},
+  typedTests = false,
 } = {}) {
   const parserOptions = tsconfigPath
     ? { project: tsconfigPath, tsconfigRootDir }
-    : { projectService: { allowDefaultProject: ['*.config.{ts,mts,cts}'] }, tsconfigRootDir };
+    : { projectService: true, tsconfigRootDir };
 
   return [
     globalIgnores,
@@ -43,7 +45,8 @@ export function createTypescriptConfig({
     }),
     { name: 'cospired/typescript', files, rules: { ...typescriptRules, ...importXTypescriptRules } },
     { name: 'cospired/typescript-eslint', files, ignores: [...testGlobs, ...jsFiles], rules: sourceOnlyRules },
-    { files: jsFiles, ...tseslint.configs.disableTypeChecked },
+    { name: 'cospired/untyped-js', files: jsFiles, ...tseslint.configs.disableTypeChecked },
+    ...(typedTests ? [] : [{ name: 'cospired/untyped', files: untypedGlobs, ...tseslint.configs.disableTypeChecked }]),
     ...prettierLast,
   ];
 }

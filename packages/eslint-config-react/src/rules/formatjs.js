@@ -15,7 +15,7 @@ export default {
     'formatjs/enforce-message-types': 'off',
     'formatjs/no-id': 'off',
     'formatjs/no-literal-string-in-object': 'off',
-    'formatjs/prefer-formatted-message': 'error',
+    'formatjs/prefer-formatted-message': 'off',
     'formatjs/no-camel-case': 'error',
     'formatjs/no-invalid-icu': 'error',
   },
