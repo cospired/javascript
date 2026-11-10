@@ -4,11 +4,10 @@ import test from 'node:test';
 
 import { ruleSeverity, warnRules } from '../../../test-utils/lint.js';
 
-import { ids, jsConfig, root, tsConfig } from './helpers.js';
+import { ids, jsConfig, root } from './helpers.js';
 
-test('no rule resolves to "warn" in the React configs', async () => {
+test('no rule resolves to "warn" in the React config', async () => {
   assert.deepEqual(await warnRules(jsConfig, path.join(root, 'src/a.jsx'), root), []);
-  assert.deepEqual(await warnRules(tsConfig, path.join(root, 'src/a.tsx'), root), []);
 });
 
 test('hooks exhaustive-deps, refresh and formatjs literal-string rules are errors', async () => {

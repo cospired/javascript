@@ -1,12 +1,10 @@
+import { createBaseConfig, globalIgnores, prettierLast } from '@cospired/eslint-config-base';
 import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
 import { jsFiles, testGlobs, untypedGlobs } from './globs.js';
-import { globalIgnores } from './ignores.js';
-import { importSettings, importXTypescript, importXTypescriptRules } from './rules/import-x.js';
+import { importSettings, importXTypescript, importXTypescriptRules } from './rules/import-x-typescript.js';
 import { sourceOnlyRules, typescriptRules } from './rules/typescript-eslint.js';
-
-import { createBaseConfig, prettierLast } from './index.js';
 
 export { globalIgnores };
 

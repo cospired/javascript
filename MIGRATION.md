@@ -1,12 +1,12 @@
 # Migrating from 7.x to 8.0
 
-8.0 is a rewrite. Both packages keep their names.
+8.0 is a rewrite. `base` and `react` keep their names; `typescript` and `react-typescript` are new packages, so JavaScript-only projects don't need the TypeScript peers.
 
 - **Flat config only, ESLint 10.** `.eslintrc` is gone; use `eslint.config.js` (see the package READMEs).
 - **No airbnb.** `eslint-config-airbnb(-base)` and `airbnb-typescript` are no longer used or needed. The airbnb rules we kept are listed in [docs/rules.md](docs/rules.md); the rest are dropped. New rule set: ESLint and typescript-eslint recommended plus the rules in that table.
 - **No hapi plugin.** `@hapi/scope-start` (a blank line at the start of function bodies) cannot coexist with Prettier and is dropped. `@hapi/no-arrowception` is dropped. Blank lines before `return` and after declarations are enforced via `@stylistic/padding-line-between-statements`.
-- **TypeScript is a first-class entry:** `@cospired/eslint-config-base/typescript` (and `/node`, `@cospired/eslint-config-react/typescript`).
-- **Every entry works with no options:** `export { default } from '@cospired/eslint-config-base/node';` is a complete `eslint.config.js`. Node.js JavaScript projects use `@cospired/eslint-config-base/node-js`.
+- **TypeScript has its own packages:** `@cospired/eslint-config-typescript` (and `/node`) and `@cospired/eslint-config-react-typescript`.
+- **Every entry works with no options:** `export { default } from '@cospired/eslint-config-typescript/node';` is a complete `eslint.config.js`. Node.js JavaScript projects use `@cospired/eslint-config-base/node`.
 - **No `warn`.** Every rule is `error` or off.
 - **Peers changed:** `@hapi/eslint-plugin`, `eslint-plugin-import`, `eslint-plugin-eslint-comments`, `eslint-plugin-react`, `eslint-plugin-jsx-a11y` are no longer used. New: `eslint-plugin-import-x`, `@eslint-community/eslint-plugin-eslint-comments`, `eslint-plugin-todo-plz`, `@stylistic/eslint-plugin`, `typescript-eslint`, `eslint-import-resolver-typescript`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `eslint-plugin-formatjs`.
 - **React:** the `/hooks` convenience export is gone (hooks rules are part of the default). `eslint-plugin-react` rules and jsx-a11y are not included; jsx-a11y returns when the plugin supports ESLint 10.

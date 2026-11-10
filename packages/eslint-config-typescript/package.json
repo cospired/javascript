@@ -1,0 +1,58 @@
+{
+  "name": "@cospired/eslint-config-typescript",
+  "version": "7.0.0",
+  "description": "Slightly opinionated ESLint flat config for TypeScript (type-aware)",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "license": "BSD-3-Clause-Clear",
+  "author": "Dirk Haage <dirk@cospired.com>",
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "flat-config",
+    "cospired"
+  ],
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./node": "./src/node.js",
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@cospired/eslint-config-base": "^7.0.2"
+  },
+  "peerDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import-x": "^4.18.1",
+    "eslint-plugin-todo-plz": "^1.4.1",
+    "globals": "^17.14.0",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "typescript": ">=5.4.2 <6.1",
+    "typescript-eslint": "^8.72.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cospired/javascript.git",
+    "directory": "packages/eslint-config-typescript"
+  },
+  "homepage": "https://github.com/cospired/javascript/tree/main/packages/eslint-config-typescript#readme",
+  "bugs": {
+    "url": "https://github.com/cospired/javascript/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "sideEffects": false
+}

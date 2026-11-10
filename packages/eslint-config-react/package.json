@@ -1,7 +1,7 @@
 {
   "name": "@cospired/eslint-config-react",
   "version": "7.0.0",
-  "description": "Slightly opinionated ESLint flat config for React (JavaScript and TypeScript)",
+  "description": "Slightly opinionated ESLint flat config for React (JavaScript)",
   "type": "module",
   "files": [
     "src"
@@ -25,7 +25,7 @@
   },
   "exports": {
     ".": "./src/index.js",
-    "./typescript": "./src/typescript.js",
+    "./parts": "./src/parts.js",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -35,12 +35,17 @@
     "@cospired/eslint-config-base": "^7.0.2"
   },
   "peerDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import-x": "^4.18.1",
+    "eslint-plugin-todo-plz": "^1.4.1",
+    "globals": "^17.14.0",
     "eslint-plugin-formatjs": "^8.1.4",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.7",
-    "globals": "^17.14.0"
+    "eslint-plugin-react-refresh": "^0.5.7"
   },
   "homepage": "https://github.com/cospired/javascript/tree/main/packages/eslint-config-react#readme",
   "bugs": {

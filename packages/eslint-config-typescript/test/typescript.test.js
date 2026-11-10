@@ -4,7 +4,7 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 import { lintText, ruleIds, ruleSeverity } from '../../../test-utils/lint.js';
-import { createTypescriptConfig } from '../src/typescript.js';
+import { createTypescriptConfig } from '../src/index.js';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures', 'ts-project');
 const abs = (file) => path.join(root, file);
@@ -89,7 +89,7 @@ test('every rule exists and JS configs hold no TypeScript rules', async () => {
   const { missingRules, loadedRules } = await import('../../../test-utils/lint.js');
 
   assert.deepEqual(missingRules(config), []);
-  const { default: js } = await import('../src/index.js');
+  const { default: js } = await import('@cospired/eslint-config-base');
 
   assert.deepEqual([...loadedRules(js)].filter((id) => id.startsWith('@typescript-eslint/')), []);
 });

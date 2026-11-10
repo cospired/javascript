@@ -2,14 +2,14 @@
 
 Slightly opinionated ESLint flat configs (ESLint 10) for JavaScript and TypeScript.
 
-| Package | Entry | For |
+| Package | Entries | For |
 |---|---|---|
-| [`@cospired/eslint-config-base`](packages/eslint-config-base) | `.` | JavaScript |
-| | `./node-js` | Node.js JavaScript |
-| | `./typescript` | TypeScript (type-aware) |
-| | `./node` | Node.js TypeScript |
-| [`@cospired/eslint-config-react`](packages/eslint-config-react) | `.` | React, JavaScript |
-| | `./typescript` | React, TypeScript |
+| [`@cospired/eslint-config-base`](packages/eslint-config-base) | `.`, `./node` | JavaScript, Node.js JavaScript |
+| [`@cospired/eslint-config-typescript`](packages/eslint-config-typescript) | `.`, `./node` | TypeScript (type-aware), Node.js TypeScript |
+| [`@cospired/eslint-config-react`](packages/eslint-config-react) | `.` | React JavaScript |
+| [`@cospired/eslint-config-react-typescript`](packages/eslint-config-react-typescript) | `.` | React TypeScript |
+
+Every entry works with no options: `export { default } from '@cospired/eslint-config-typescript/node';` is a complete `eslint.config.js`.
 
 Every rule that differs from ESLint/typescript-eslint recommended, with its source and the decision taken, is listed in [docs/rules.md](docs/rules.md). Upgrading from 7.x: [MIGRATION.md](MIGRATION.md).
 
