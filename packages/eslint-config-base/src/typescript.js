@@ -1,11 +1,12 @@
 import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
-import { globalIgnores } from './ignores.js';
-import { createBaseConfig, prettierLast } from './index.js';
 import { jsFiles, testGlobs, untypedGlobs } from './globs.js';
+import { globalIgnores } from './ignores.js';
 import { importSettings, importXTypescript, importXTypescriptRules } from './rules/import-x.js';
 import { sourceOnlyRules, typescriptRules } from './rules/typescript-eslint.js';
+
+import { createBaseConfig, prettierLast } from './index.js';
 
 export { globalIgnores };
 

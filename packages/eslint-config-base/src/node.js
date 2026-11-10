@@ -1,9 +1,9 @@
 import globals from 'globals';
 
 import { jsFiles, untypedGlobs } from './globs.js';
+import { createTypescriptConfig } from './typescript.js';
 
 export { globalIgnores } from './ignores.js';
-import { createTypescriptConfig } from './typescript.js';
 
 
 /**

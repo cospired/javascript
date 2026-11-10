@@ -9,14 +9,15 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 export const fixtureProject = path.join(here, 'fixtures', 'ts-project');
 
 /** Lint `code` with a flat config array; returns the flattened messages. */
-export async function lintText(config, code, { filePath = 'src/sample.ts', cwd } = {}) {
-  filePath = path.resolve(fixtureProject, filePath);
+export async function lintText(config, code, { filePath: file = 'src/sample.ts', cwd } = {}) {
+  const filePath = path.resolve(fixtureProject, file);
   const eslint = new ESLint({
     overrideConfigFile: true,
     overrideConfig: config,
     cwd: cwd ?? path.dirname(filePath),
   });
   const [result] = await eslint.lintText(code, { filePath });
+
   return result.messages;
 }
 
@@ -24,18 +25,21 @@ export const ruleIds = (messages) => [...new Set(messages.map((m) => m.ruleId).f
 
 const isOn = (entry) => {
   const level = Array.isArray(entry) ? entry[0] : entry;
+
   return level !== 'off' && level !== 0;
 };
 
 /** Every rule id in a config array whose severity is not off. */
 export function loadedRules(config) {
   const rules = new Set();
+
   for (const item of config) {
     for (const [id, entry] of Object.entries(item.rules ?? {})) {
       if (isOn(entry)) rules.add(id);
       else rules.delete(id);
     }
   }
+
   return rules;
 }
 
@@ -46,6 +50,7 @@ export function missingRules(config) {
 
   return [...ids].filter((id) => {
     const slash = id.lastIndexOf('/');
+
     if (slash === -1) return !builtinRules.has(id);
     const plugin = plugins[id.slice(0, slash)];
 
@@ -54,8 +59,8 @@ export function missingRules(config) {
 }
 
 /** The severity (0|1|2) a rule has for `filePath` once all config objects are merged. */
-export async function ruleSeverity(config, ruleId, filePath = 'src/sample.ts', cwd) {
-  filePath = path.resolve(fixtureProject, filePath);
+export async function ruleSeverity(config, ruleId, file, cwd) {
+  const filePath = path.resolve(fixtureProject, file ?? 'src/sample.ts');
   const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: config, cwd: cwd ?? path.dirname(filePath) });
   const entry = (await eslint.calculateConfigForFile(filePath)).rules?.[ruleId];
 
@@ -63,8 +68,8 @@ export async function ruleSeverity(config, ruleId, filePath = 'src/sample.ts', c
 }
 
 /** Rule ids that resolve to severity "warn" for `filePath`. The shipped configs must have none. */
-export async function warnRules(config, filePath = 'src/sample.ts', cwd) {
-  filePath = path.resolve(fixtureProject, filePath);
+export async function warnRules(config, file, cwd) {
+  const filePath = path.resolve(fixtureProject, file ?? 'src/sample.ts');
   const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: config, cwd: cwd ?? path.dirname(filePath) });
   const { rules = {} } = await eslint.calculateConfigForFile(filePath);
 

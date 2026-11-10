@@ -3,8 +3,8 @@ import globals from 'globals';
 
 import { anyTestGlobs, withMonorepoTwins } from './globs.js';
 import { globalIgnores } from './ignores.js';
-import eslintCore from './rules/eslint.js';
 import eslintComments from './rules/eslint-comments.js';
+import eslintCore from './rules/eslint.js';
 import { createImportsConfig } from './rules/import-x.js';
 import stylistic from './rules/stylistic.js';
 import todoPlz from './rules/todo-plz.js';

@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "changeset": "changeset",
     "release": "changeset publish",
-    "rules": "node scripts/rule-table.js"
+    "rules": "node scripts/rule-table.js",
+    "smoke": "node scripts/smoke-pack.js"
   },
   "repository": {
     "type": "git",

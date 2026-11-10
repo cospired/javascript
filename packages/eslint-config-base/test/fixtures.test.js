@@ -22,17 +22,20 @@ test('alphabetizes imports', async () => {
 
 test('devDependency imports: rejected in src, allowed in *.test.js', async () => {
   const code = "import { test } from 'eslint';\n\nexport default test;\n";
+
   assert.ok((await lint(code, 'src/a.js')).includes('import-x/no-extraneous-dependencies'));
   assert.ok(!(await lint(code, 'src/a.test.js')).includes('import-x/no-extraneous-dependencies'));
 });
 
 test('blank line before return is required', async () => {
   const code = 'export function f(a) {\n  const b = a + 1;\n  return b;\n}\n';
+
   assert.ok((await lint(code)).includes('@stylistic/padding-line-between-statements'));
   assert.ok(!(await lint('export function f(a) {\n  const b = a + 1;\n\n  return b;\n}\n')).includes('@stylistic/padding-line-between-statements'));
 });
 
 test('no-var and prefer-const are flagged', async () => {
   const ids = await lint('var a = 1;\nlet b = 2;\n\nexport { a, b };\n');
+
   assert.ok(ids.includes('no-var') && ids.includes('prefer-const'));
 });

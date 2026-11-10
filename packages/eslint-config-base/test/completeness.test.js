@@ -4,8 +4,8 @@ import test from 'node:test';
 import { redundantRules, unconfiguredRules } from '../../../test-utils/lint.js';
 import { baseNamespaces, pluginRules, typescriptNamespaces } from '../../../test-utils/plugins.js';
 import jsConfig from '../src/index.js';
-import { createNodeConfig } from '../src/node.js';
 import nodeJs from '../src/node-js.js';
+import { createNodeConfig } from '../src/node.js';
 import { createTypescriptConfig } from '../src/typescript.js';
 
 // A rule counts as configured when a recommended preset or one of our files sets it (on or off).

@@ -98,7 +98,7 @@ export default [
       'require-await': 'error',
       yoda: 'error',
 
-      // --- off: opinion, thresholds, or covered elsewhere (import-x, TypeScript, Prettier, todo-plz)
+      // --- off: opinion, thresholds, or covered elsewhere (import-x, TypeScript, Prettier, the ticket-ref plugin)
       'block-scoped-var': 'off',
       'capitalized-comments': 'off',
       'class-methods-use-this': 'off',

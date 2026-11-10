@@ -92,6 +92,7 @@ async function main() {
     renderTable('React JS (vs. Base JS)', ...table(reactJs, baseJs)),
     renderTable('React TypeScript (vs. Base TypeScript)', ...table(reactTsRules, baseTsRules)),
   ].join('\n');
+
   fs.writeFileSync(path.join(here, '..', 'docs', 'rules.md'), out);
 }
 

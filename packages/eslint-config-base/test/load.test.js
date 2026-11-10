@@ -6,5 +6,6 @@ import config from '../src/index.js';
 
 test('base JS config lints a trivial file without errors', async () => {
   const messages = await lintText(config, 'const a = 1;\n\nexport default a;\n', { filePath: 'a.js' });
+
   assert.deepEqual(messages, []);
 });

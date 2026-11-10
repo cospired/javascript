@@ -14,6 +14,7 @@ const ids = async (cwd, code, file = 'src/a.js') => ruleIds(await lintText(creat
 
 test('CommonJS package (no "type"): require/module/process are defined', async () => {
   const found = await ids(cjs, cjsCode);
+
   assert.ok(!found.includes('no-undef'), found.join());
 });
 
@@ -23,6 +24,7 @@ test('ESM package ("type": "module"): CommonJS globals are not defined', async (
 
 test('node globals exist either way', async () => {
   const code = 'export const c = process.cwd();\n';
+
   assert.ok(!(await ids(esm, code)).includes('no-undef'));
 });
 

@@ -13,6 +13,7 @@ export { jsConfig };
 /** Rule ids for `code` at `file` (relative to the fixture project); asserts the file parses. */
 export async function ids(cfg, code, file) {
   const messages = await lintText(cfg, code, { filePath: path.join(root, file), cwd: root });
+
   assert.deepEqual(messages.filter((m) => m.fatal), [], 'fixture must parse');
 
   return ruleIds(messages);
