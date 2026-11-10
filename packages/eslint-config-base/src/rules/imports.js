@@ -23,6 +23,9 @@ export function createImportsConfig({ devDependencyGlobs = defaultDevDependencyG
     plugins: { 'import-x': importX },
     rules: {
       ...importX.flatConfigs.recommended.rules,
+      // Plugins default-export objects whose members also ship as named exports.
+      'import-x/no-named-as-default': 'off',
+      'import-x/no-named-as-default-member': 'off',
       'import-x/newline-after-import': 'error',
       'import-x/no-duplicates': 'error',
       'import-x/no-empty-named-blocks': 'error',

@@ -6,10 +6,18 @@ export const testGlobs = ['**/*.{test,spec}.{ts,tsx,mts,cts}', 'test/**', 'tests
 
 /** Rules on top of typescript-eslint's recommended/stylistic type-checked sets. Severities are placeholders until the rule review. */
 export const typescriptRules = {
-  '@typescript-eslint/no-explicit-any': 'warn',
+  '@typescript-eslint/default-param-last': 'error',
+  '@typescript-eslint/no-explicit-any': 'error',
   '@typescript-eslint/no-generated-empty-object-type': 'error',
   '@typescript-eslint/no-misused-promises': ['error', { checksConditionals: { flagUnions: 'strict' } }],
-  '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+  '@typescript-eslint/no-shadow': 'error',
+  '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
+  '@typescript-eslint/no-use-before-define': 'error',
+  // Core versions replaced by the typescript-eslint ones above; the compiler's noImplicitReturns covers consistent-return.
+  'consistent-return': 'off',
+  'default-param-last': 'off',
+  'no-shadow': 'off',
+  'no-use-before-define': 'off',
   'import-x/consistent-type-specifier-style': ['error', 'prefer-inline'],
 };
 

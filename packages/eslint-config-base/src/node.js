@@ -24,7 +24,5 @@ export function createNodeConfig(options = {}) {
         '@typescript-eslint/prefer-nullish-coalescing': ['error', { ignorePrimitives: { string: true } }],
       },
     },
-    // CLI output is expected in scripts.
-    { files: ['scripts/**/*.{mjs,js,ts}'], rules: { 'no-console': 'off' } },
   ];
 }

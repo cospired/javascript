@@ -1,8 +1,7 @@
-import prettier from 'eslint-config-prettier';
 import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
-import { createBaseConfig } from './index.js';
+import { createBaseConfig, prettierLast } from './index.js';
 import { importSettings, importXTypescript, sourceOnlyRules, testGlobs, typescriptRules } from './rules/typescript.js';
 
 export { globalIgnores } from './ignores.js';
@@ -41,6 +40,6 @@ export function createTypescriptConfig({
     }),
     { files, ignores: testGlobs, rules: sourceOnlyRules },
     { files: ['**/*.{js,mjs,cjs}'], ...tseslint.configs.disableTypeChecked },
-    prettier,
+    ...prettierLast,
   ];
 }

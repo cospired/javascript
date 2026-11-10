@@ -61,3 +61,12 @@ export async function ruleSeverity(config, ruleId, filePath = 'src/sample.ts') {
 
   return Array.isArray(entry) ? entry[0] : entry;
 }
+
+/** Rule ids that resolve to severity "warn" for `filePath`. The shipped configs must have none. */
+export async function warnRules(config, filePath = 'src/sample.ts', cwd) {
+  filePath = path.resolve(fixtureProject, filePath);
+  const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: config, cwd: cwd ?? path.dirname(filePath) });
+  const { rules = {} } = await eslint.calculateConfigForFile(filePath);
+
+  return Object.entries(rules).filter(([, entry]) => (Array.isArray(entry) ? entry[0] : entry) === 1).map(([id]) => id).sort();
+}
