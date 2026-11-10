@@ -11,7 +11,6 @@ import todoPlz from './rules/todo-plz.js';
 
 export { anyTestGlobs, withMonorepoTwins } from './globs.js';
 export { globalIgnores } from './ignores.js';
-export { createImportsConfig, defaultDevDependencyGlobs } from './rules/import-x.js';
 
 /**
  * eslint-config-prettier disables `curly`, so it must be re-enabled after it. Every config ends with these.

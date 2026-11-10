@@ -12,5 +12,3 @@ The config tests lint code with the real ESLint and typescript-eslint, so they n
 | `src/a.test.tsx`, `test/a.test.ts` | Test files, inside a tsconfig (`src`, `test`). |
 | `other/c.test.ts` | A test file outside every tsconfig: must lint without a parsing error. |
 | `tool.config.ts`, `tool.shared.ts` | TypeScript files at the project root outside every tsconfig (bundler, test runner or ORM configs): same. |
-
-`cjs-project` is a `package.json` without `"type"`, to test CommonJS detection.
