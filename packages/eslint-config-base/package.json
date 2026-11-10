@@ -25,7 +25,8 @@
   "exports": {
     ".": "./src/index.js",
     "./typescript": "./src/typescript.js",
-    "./node": "./src/node.js"
+    "./node": "./src/node.js",
+    "./node-js": "./src/node-js.js"
   },
   "scripts": {
     "test": "node --test 'test/*.test.js'"
