@@ -4,5 +4,12 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 export default {
   name: 'cospired/react-refresh',
   plugins: { 'react-refresh': reactRefresh },
-  rules: { 'react-refresh/only-export-components': ['error', { allowConstantExport: true }] },
+  rules: {
+    /*
+      Keeps components hot-reloadable (Vite Fast Refresh): a file exporting components exports
+      nothing else but constants.
+    */
+    'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
+
+  },
 };
