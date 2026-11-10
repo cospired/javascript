@@ -50,3 +50,23 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run smoke
+
+  publish-dry-run:
+    name: publish dry run (pending changesets applied)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - name: Apply pending changesets and dry-run publish
+        run: |
+          if [ -z "$(find .changeset -name '*.md' ! -name README.md)" ]; then
+            echo "No pending changesets: nothing to publish."
+            exit 0
+          fi
+          npx changeset version
+          npm publish --dry-run --workspaces --access public
