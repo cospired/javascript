@@ -34,5 +34,6 @@ jobs:
           commit-message: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Empty on purpose: npm authenticates through trusted publishing (OIDC), no token is stored.
+          NODE_AUTH_TOKEN: ''
           NPM_CONFIG_PROVENANCE: 'true'
